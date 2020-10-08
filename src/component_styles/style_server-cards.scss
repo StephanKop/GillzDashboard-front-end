@@ -1,0 +1,79 @@
+@import "../App";
+
+.loading {
+  height: 30vh;
+}
+
+.card-container {
+  display: grid;
+  //grid-template-columns: 30% 30% 30%;
+  grid-template-columns: repeat(auto-fit, 30%);
+  grid-template-rows: 50% 50%;
+  grid-column-gap: 3rem;
+  grid-row-gap: 2rem;
+  margin-bottom: 2rem;
+  &__card {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0px 0px 15px 0px rgba(179,179,179,0.5);
+    transition: all 0.2s ease;
+    &:hover {
+      box-shadow: 0px 0px 15px 0px rgba(179,179,179,1);
+    }
+    .card-layout {
+      display: flex;
+      flex-direction: row;
+      //padding: 5% 3.5% 5% 3.5%;
+      margin: 5% 3.5% 5% 3.5%;
+      justify-content: space-between;
+      height: 64%;
+      &__text {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        h4 {
+          margin-top: -0.9rem;
+          font-weight: 700;
+          font-size: 1.5em;
+        }
+        &--bottomstatus {
+          display: flex;
+          flex-direction: row;
+          p {
+            font-size: 0.7em;
+            color: $gillzBlue;
+            span {
+              margin-right: 1rem;
+              font-weight: bold;
+              color: $green;
+            }
+          }
+        }
+      }
+      img {
+        width: 3vw;
+        height: 64%;
+        object-fit: fill;
+        margin-right: 1rem;
+      }
+      .currentstatus {
+        display: flex;
+        flex-direction: column;
+        margin-left: auto;
+        justify-content: space-between;
+        //margin-right: auto;
+        img {
+          width: 3vw;
+          height: 3vw;
+          margin-left: auto;
+          margin-right: auto;
+        }
+        p {
+          font-size: 0.7em;
+          color: $green;
+          text-align: center;
+        }
+      }
+    }
+  }
+}

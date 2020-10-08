@@ -1,0 +1,12 @@
+ .server-container {
+    display: flex;
+    flex-direction: column;
+    margin-top: 1rem;
+   &--serverDeadlines {
+     margin-top: 3rem;
+   }
+   &__bottom-row {
+     display: grid;
+     grid-template-columns: 50% auto;
+   }
+  }

@@ -1,0 +1,45 @@
+//variables
+$gillzBlue: #323B49;
+$gillzRed: #F9484C;
+$green: #56EB95;
+
+.main {
+  display: flex;
+  flex-direction: row;
+  height: 100vh;
+  background-color: #FAFAFA;
+}
+h1, h2, h3, h4, h5, h6, p {
+  margin: 0;
+}
+
+h2 {
+  color: $gillzBlue;
+  font-family: Cairo;
+  font-weight: 800;
+  font-size: 2em;
+}
+
+h3 {
+  color: $gillzBlue;
+  font-family: Cairo;
+  font-weight: 700;
+}
+
+h4 {
+  color: $gillzBlue;
+  font-family: Cairo;
+  font-weight: 600;
+}
+
+.content {
+  margin-left: 5rem;
+}
+
+.error {
+  color: $gillzRed !important;
+}
+
+.ok {
+  color: $green !important;
+}
