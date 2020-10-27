@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import '../component_styles/style_server-cards.scss';
 import '../App.scss';
-import  {servers} from '../utils/servers';
+import {Link} from "react-router-dom";
 
-const Servercards = ()  => {
+const Servercards = (props)  => {
     const  [hasError, setErrors] =  useState(false)
     const  [isLoaded, setIsLoaded] =  useState(false)
     const  [servers,setServers ]= useState<any[]>([])
 
     async function fetchData() {
-        const res = await fetch("http://localhost:3001/server-status");
+        // const res = await fetch("http://localhost:3001/server-status");
+        const res = await fetch(props.apiLink);
         res
             .json()
             .then((res) => {
@@ -20,7 +21,7 @@ const Servercards = ()  => {
     }
 
     useEffect(() => {
-        fetchData();
+        // fetchData();
         let interval = setInterval(() => fetchData(), (1000 * 5))
         return () => clearInterval(interval)
     }, [isLoaded]);
@@ -91,30 +92,37 @@ const Servercards = ()  => {
         }
 
         if (!isLoaded) {
-            return <h2 className={'loading'}>Loading...</h2>
+            // return <h2 className={'loading'}>Loading...</h2>
+            return <div className={'loading-container'}><img className={'loading'} src={require('../img/loading.gif')}/></div>
+        }
+
+        if (hasError) {
+            return <h2>Error</h2>
         }
 
 
         return (
                 <div className={'card-container'}>
                     {servers.map((serverData, index) => (
-                    <div className={'card-container__card'} key={index}>
-                        <div className={'card-layout'}>
-                            {/*<img src={require('../img/server.svg')} alt={'server-icon'}/>*/}
-                            <div className={'card-layout__text'}>
-                                <h4>{serverData.name}</h4>
-                                <div className={'card-layout__text--bottomstatus'}>
-                                    <p>Disk status: <span id={'disk'}>{serverData.disk}</span></p>
-                                    <p>memory status: <span id={'memory'}>{serverData.memory}</span></p>
+                    <Link to={"server" + "-" + serverData.id} key={index}>
+                        <div className={'card-container__card'}>
+                            <div className={'card-layout'}>
+                                <img src={require('../img/server.svg')} alt={'server-icon'}/>
+                                <div className={'card-layout__text'}>
+                                    <h4>{serverData.name}</h4>
+                                    <div className={'card-layout__text--bottomstatus'}>
+                                        <p>Disk status: <span id={'disk'}>{serverData.disk}</span></p>
+                                        <p>memory status: <span id={'memory'}>{serverData.memory}</span></p>
+                                    </div>
+                                </div>
+                                <div className={'currentstatus'}>
+                                    {/*<img id={serverData.name} src={require('../img/statusok.png')} alt={'server-icon'}/>*/}
+                                    <img id={'statusIcon' + serverData.id} src={require('../img/statusok.png')} alt={'server-icon'}/>
+                                    <p id={'status' + serverData.id}>{serverData.status}</p>
                                 </div>
                             </div>
-                            <div className={'currentstatus'}>
-                                {/*<img id={serverData.name} src={require('../img/statusok.png')} alt={'server-icon'}/>*/}
-                                <img id={'statusIcon' + serverData.id} src={require('../img/statusok.png')} alt={'server-icon'}/>
-                                <p id={'status' + serverData.id}>{serverData.status}</p>
-                            </div>
                         </div>
-                    </div>
+                    </Link>
                     ))}
                 </div>
         )

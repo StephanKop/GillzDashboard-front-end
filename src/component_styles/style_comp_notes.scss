@@ -1,0 +1,27 @@
+@import "../App";
+
+.notes-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 15%);
+  grid-column-gap: 3rem;
+  grid-row-gap: 2.5vh;
+  .note {
+    background-color: white;
+    box-shadow: $shadow;
+    border-radius: $radius;
+    padding: 0.5rem;
+    &__title {
+      margin-bottom: 1rem;
+    }
+    &__description {
+      font-weight: 300;
+      margin-bottom: 2rem;
+      height: 10vh;
+    }
+    &__date {
+      text-align: right;
+      font-size: 0.8em;
+      color: lightgrey;
+    }
+  }
+}

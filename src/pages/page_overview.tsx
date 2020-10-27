@@ -10,13 +10,14 @@ export class Page_overview extends Component {
             <div className={'content'}>
                 <div className={'server-container'}>
 
-                    <h3 className={'server-container--serverTitle'}>Servers</h3>
-                        <Servercards/>
+                    <h3 className={'server-container--serverTitle'}>Server status</h3>
+                        <Servercards apiLink={process.env.REACT_APP_API_SERVER_STATUS}/>
                     <div className={'server-container__bottom-row'}>
 
                         <div>
                             <h3 className={'server-container--serverDeadlines'}>Deadlines</h3>
-                            <Deadlines/>
+                            {/*<Deadlines apiLink={"http://localhost:3001/deadlines/four"}/>*/}
+                            <Deadlines apiLink={process.env.REACT_APP_API_DEADLINES_FOUR}/>
                         </div>
 
                         <div>

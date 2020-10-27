@@ -4,7 +4,7 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, 90%);
   grid-column-gap: 3rem;
-  grid-row-gap: 2rem;
+  grid-row-gap: 2.5vh;
   a {
     text-decoration: none;
     p {
@@ -35,8 +35,8 @@
       display: flex;
       align-items: center;
       img {
-        width: 1.5rem;
-        height: 1.5rem;
+        width: 2rem;
+        height: 2rem;
         margin-right: 0.5rem;
         border-radius: 100%;
         filter: grayscale(1);
@@ -54,23 +54,172 @@
   }
 }
 
+@keyframes zero {
+  0% {
+    background: white;
+    width: 100%;
+  }
+  100% {
+    background: $gillzRed;
+    width: 30%;
+    color: white;
+  }
+}
+
+@keyframes ten {
+  0% {
+    width: 100%;
+  }
+  100% {
+    width: 35%;
+  }
+}
+
+@keyframes twenty {
+  0% {
+    width: 100%;
+  }
+  100% {
+    width: 40%;
+  }
+}
+
+@keyframes thirty {
+  0% {
+    width: 100%;
+  }
+  100% {
+    width: 45%;
+  }
+}
+
+@keyframes fourty {
+  0% {
+    width: 100%;
+  }
+  100% {
+    width: 50%;
+  }
+}
+
+@keyframes fifty {
+  0% {
+    width: 100%;
+  }
+  100% {
+    width: 55%;
+  }
+}
+
+@keyframes sixty {
+  0% {
+    width: 100%;
+  }
+  100% {
+    width: 60%;
+  }
+}
+
+@keyframes seventy {
+  0% {
+    width: 100%;
+  }
+  100% {
+    width: 65%;
+  }
+}
+
+@keyframes eighty {
+  0% {
+    width: 100%;
+  }
+  100% {
+    width: 70%;
+  }
+}
+
+@keyframes ninety {
+  0% {
+    width: 100%;
+  }
+  100% {
+    width: 75%;
+  }
+}
+
+@keyframes hundred {
+  0% {
+    width: 100%;
+  }
+  100% {
+    width: 80%;
+  }
+}
+
 .transition {
   transition: all 0.5s ease;
 }
 
 .hundreddays {
-  width: 100%;
-  transition: all 0.5s ease;
-    }
+  //width: 100%;
+  //transition: all 0.5s ease;
+  animation: hundred 2s ease forwards;
+}
 .ninetydays {
-  width: 90%;
-  transition: all 0.5s ease;
+  //width: 95%;
+  //transition: all 0.5s ease;
+  animation: ninety 2s ease forwards;
 }
 .eightydays {
-  width: 80%;
-  transition: all 0.5s ease;
+  //width: 90%;
+  //transition: all 0.5s ease;
+  animation: eighty 2s ease forwards;
 }
 .seventydays {
-  width: 70%;
-  transition: all 0.5s ease;
+  //width: 85%;
+  //transition: all 0.5s ease;
+  animation: seventy 2s ease forwards;
+}
+.sixtydays {
+  //width: 80%;
+  //transition: all 0.5s ease;
+  animation: sixty 2s ease forwards;
+}
+.fiftydays {
+  //width: 75%;
+  //transition: all 0.5s ease;
+  animation: fifty 2s ease forwards;
+}
+.fourtydays {
+  //width: 70%;
+  //transition: all 0.5s ease;
+  animation: fourty 2s ease forwards;
+}
+.thirtydays {
+  //width: 65%;
+  //transition: all 0.5s ease;
+  animation: thirty 2s ease forwards;
+}
+.twentydays {
+  //width: 60%;
+  //transition: all 0.5s ease;
+  animation: twenty 2s ease forwards;
+}
+.tendays {
+  //width: 55%;
+  //transition: all 0.5s ease;
+  animation: ten 2s ease forwards;
+}
+.zerodays {
+  //width: 30%;
+  //transition: all 0.5s ease;
+  animation: zero 2s ease forwards;
+}
+
+.deadline--alert {
+  background: $gillzRed !important;
+}
+
+.hidden {
+  display: none !important;
 }
