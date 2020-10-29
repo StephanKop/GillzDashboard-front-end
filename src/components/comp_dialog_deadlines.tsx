@@ -6,12 +6,12 @@ import axios from 'axios';
 const Dialog_deadlines = (props)  => {
     const [hasError, setErrors] =  useState(false)
     const [isLoaded, setIsLoaded] =  useState(false)
-    const [DeadlineIsLoaded, setDeadlineIsLoaded] =  useState(false)
+    // const [DeadlineIsLoaded, setDeadlineIsLoaded] =  useState(false)
     const [members,setMembers ]= useState<any[]>([])
-    const [deadline,setDeadline ]= useState<any[]>([])
-    let [members0, setMembers0]= useState(Number);
-    let [members1, setMembers1]= useState(Number);
-    let [members2, setMembers2]= useState(Number);
+    // const [deadline,setDeadline ]= useState<any[]>([])
+    let [members0]= useState(Number);
+    let [members1]= useState(Number);
+    let [members2]= useState(Number);
 
     async function fetchData() {
         const res = await fetch(props.memberLink);
@@ -52,27 +52,47 @@ const Dialog_deadlines = (props)  => {
         const name = formData.elements['name'].value;
         const deadline = formData.elements['deadline'].value;
         const link = formData.elements['link'].value;
+        let isActive = formData.elements['isActive'].value;
+        var boolValue = getBoolean(isActive);
+        function getBoolean(value){
+            switch(value){
+                case true:
+                case "true":
+                case 1:
+                case "1":
+                case "on":
+                case "yes":
+                    return true;
+                default:
+                    return false;
+            }
+        }
         let members = [] as any;
         if (formData.elements['members[0][id]'].value !== "") {
             members0 = formData.elements['members[0][id]'].value;
-            let memberObj0 = {id: members0};
+            let numMember0 = Number(members0);
+            let memberObj0 = {id: numMember0};
             members.push(memberObj0);
         }
         if (formData.elements['members[1][id]'].value !== "") {
             members1 = formData.elements['members[1][id]'].value;
-            let memberObj1 = {id: members1};
+            let numMember1 = Number(members1);
+            let memberObj1 = {id: numMember1};
             members.push(memberObj1);
         }
         if (formData.elements['members[2][id]'].value !== "") {
             members2 = formData.elements['members[2][id]'].value;
-            let memberObj2 = {id: members2};
+            let numMember2 = Number(members2);
+            let memberObj2 = {id: numMember2};
             members.push(memberObj2);
         }
 
-        axios.post('http://localhost:3001/deadlines', {
+        // @ts-ignore
+        axios.post(process.env.REACT_APP_API_DEADLINES, {
             name: name,
             deadline: deadline,
             link: link,
+            isActive: boolValue,
             members: members
         })
             .then(function (response) {
@@ -82,50 +102,29 @@ const Dialog_deadlines = (props)  => {
             .catch(function (error) {
                 console.log(error);
             });
+        }
 
-    }
-
-        return (
+    return (
             <div id="deadlineModal" className={'animate__animated animate__bounce modal'}>
                 <div className={'modal__top'}>
                     <h2>Deadline toevoegen</h2>
                     <img id={'cancel'} className={'modal__top--img'} src={(require('../img/add.svg'))} alt={'add'} onClick={closeForm}/>
                 </div>
-                <form method="post" encType='application/json' action="http://192.168.2.14:3001/deadlines" id={'deadlineForm'} className={'deadlineForm'}>
+                <form method="post" encType='application/json' id={'deadlineForm'} className={'deadlineForm'}>
                     <label className={'deadlineForm__label'}>Naam</label>
                     <input className={'deadlineForm__name'} type={'text'} name={'name'} placeholder={'Naam...'}/>
                     <label className={'deadlineForm__label'}>Datum</label>
                     <input className={'deadlineForm__date'} type={'date'} name={'deadline'} placeholder={'Date'}/>
                     <label className={'deadlineForm__label'}>Link</label>
                     <input className={'deadlineForm__link'} type={'text'} name={'link'} placeholder={'Link...'}/>
+                    <label className={'deadlineForm__label'}>Op dashboard</label>
+                    <select name={'isActive'} className={'deadlineForm__select'}>
+                        <option value={'false'}>Nee</option>
+                        <option value={'true'}>Ja</option>
+                    </select>
+                    {/*<input className={'deadlineForm__link'} type={'radio'} name={'isActive'}/>*/}
+                    {/*<input className={'deadlineForm__link'} type={'radio'} name={'isActive'}/>*/}
                         <div className={'members'}>
-                            {/*<div className={'members__section'}>*/}
-                            {/*    <label className={'members__section--title'}>Member 1</label>*/}
-                            {/*    {members.map((memberData, index) => (*/}
-                            {/*    <div key={index}>*/}
-                            {/*        <input className={'members__section--radio'} type={'radio'} name={'members[0][id]'} value={memberData.id} id={memberData.id}/>*/}
-                            {/*        <label htmlFor={memberData.id}><span></span>{memberData.name}</label>*/}
-                            {/*    </div>*/}
-                            {/*    ))}*/}
-                            {/*</div>*/}
-                            {/*<div className={'members__section'}>*/}
-                            {/*    <label className={'members__section--title'}>Member 2</label>*/}
-                            {/*    {members.map((memberData, index) => (*/}
-                            {/*        <div key={index}>*/}
-                            {/*            <input className={'members__section--radio'} type={'radio'} name={'members[1][id]'} value={memberData.id} id={memberData.id}/>*/}
-                            {/*            <label htmlFor={memberData.id}><span></span>{memberData.name}</label>*/}
-                            {/*        </div>*/}
-                            {/*    ))}*/}
-                            {/*</div>*/}
-                            {/*<div className={'members__section'}>*/}
-                            {/*    <label className={'members__section--title'}>Member 3</label>*/}
-                            {/*    {members.map((memberData, index) => (*/}
-                            {/*        <div key={index}>*/}
-                            {/*            <input className={'members__section--radio'} type={'radio'} name={'members[2][id]'} value={memberData.id} id={memberData.id}/>*/}
-                            {/*            <label htmlFor={memberData.id}><span></span>{memberData.name}</label>*/}
-                            {/*        </div>*/}
-                            {/*    ))}*/}
-                            {/*</div>*/}
                             <div className={'members__section'}>
                                 <label className={'members__section--title'}>Member 1</label>
                                 <select name={'members[0][id]'} className={'member__section--select'}>

@@ -9,9 +9,9 @@ const Dialog_deadlines_edit = (props)  => {
     const [deadlineIsLoaded, setDeadlineIsLoaded] =  useState(false)
     const [members,setMembers ]= useState<any[]>([])
     // const [deadline,setDeadline ]= useState<any[]>([])
-    let [members0]= useState(Number);
-    let [members1]= useState(Number);
-    let [members2]= useState(Number);
+    let [members0]= useState("");
+    let [members1]= useState("");
+    let [members2]= useState("");
 
     async function fetchMember() {
         const res = await fetch(props.memberLink);
@@ -25,20 +25,6 @@ const Dialog_deadlines_edit = (props)  => {
             })
             .catch(err => setErrors(err));
     }
-
-    // async function fetchDeadline() {
-    //     const res = await fetch(props.deadlineLink);
-    //     res
-    //         .json()
-    //         .then((res) => {
-    //             setDeadline(res);
-    //             setTimeout(function() {
-    //                 setDeadlineIsLoaded(true);
-    //             }, 100);
-    //         })
-    //         .catch(err => setErrors(err));
-    //     return true;
-    // }
 
     useEffect(() => {
         fetchMember();
@@ -64,32 +50,50 @@ const Dialog_deadlines_edit = (props)  => {
 
     function sendForm(this: any) {
         let formData = document.querySelector("#deadlineEditForm")! as HTMLFormElement;
-        const id = formData.elements['id'].value;
+        // const id = formData.elements['id'].value;
         const name = formData.elements['name'].value;
         const deadline = formData.elements['deadline'].value;
         const link = formData.elements['link'].value;
+        let isActive = formData.elements['isActive'].value;
+        var boolValue = getBoolean(isActive);
+        function getBoolean(value){
+            switch(value){
+                case true:
+                case "true":
+                case 1:
+                case "1":
+                case "on":
+                case "yes":
+                    return true;
+                default:
+                    return false;
+            }
+        }
         let members = [] as any;
         if (formData.elements['members[0][id]'].value !== "") {
-            members0 = formData.elements['members[0][id]'].value;
-            let memberObj0 = {id: members0};
+            members0 = formData.elements['members[0][id]'].value as string;
+            let numMember0 = Number(members0);
+            let memberObj0 = {id: numMember0};
             members.push(memberObj0);
         }
         if (formData.elements['members[1][id]'].value !== "") {
             members1 = formData.elements['members[1][id]'].value;
-            let memberObj1 = {id: members1};
+            let numMember1 = Number(members1);
+            let memberObj1 = {id: numMember1};
             members.push(memberObj1);
         }
         if (formData.elements['members[2][id]'].value !== "") {
             members2 = formData.elements['members[2][id]'].value;
-            let memberObj2 = {id: members2};
+            let numMember2 = Number(members2);
+            let memberObj2 = {id: numMember2};
             members.push(memberObj2);
         }
 
         axios.put(props.deadlineLink, {
-            id: id,
             name: name,
             deadline: deadline,
             link: link,
+            isActive: boolValue,
             members: members
         })
             .then(function (response) {
@@ -116,6 +120,11 @@ const Dialog_deadlines_edit = (props)  => {
                 <input className={'deadlineForm__date'} type={'date'} name={'deadline'}/>
                 <label className={'deadlineForm__label'}>Link</label>
                 <input className={'deadlineForm__link'} type={'text'} name={'link'} placeholder={props.link} defaultValue={props.link}/>
+                <label className={'deadlineForm__label'}>Op dashboard</label>
+                <select name={'isActive'} className={'deadlineForm__select'}>
+                    <option value={'false'}>Nee</option>
+                    <option value={'true'}>Ja</option>
+                </select>
                 <div className={'members'}>
                     <div className={'members__section'}>
                         <label className={'members__section--title'}>Member 1</label>

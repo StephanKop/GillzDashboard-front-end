@@ -4,7 +4,7 @@ import Deadlines from "../components/comp_deadlines";
 import '../page_styles/style_overview.scss';
 import '../App.scss';
 
-export class Page_overview extends Component {
+export class PageOverview extends Component {
     render() {
         return (
             <div className={'content'}>
@@ -17,7 +17,9 @@ export class Page_overview extends Component {
                         <div>
                             <h3 className={'server-container--serverDeadlines'}>Deadlines</h3>
                             {/*<Deadlines apiLink={"http://localhost:3001/deadlines/four"}/>*/}
-                            <Deadlines apiLink={process.env.REACT_APP_API_DEADLINES_FOUR}/>
+                            <div className={'server-container__deadlines'}>
+                                <Deadlines apiLink={process.env.REACT_APP_API_DEADLINES_FOUR}/>
+                            </div>
                         </div>
 
                         <div>

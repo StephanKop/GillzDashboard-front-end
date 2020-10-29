@@ -80,6 +80,21 @@
       margin-bottom: 1rem;
       font-family: CairoLight;
     }
+    &__select {
+      border: none;
+      box-shadow: 0px 0px 15px 0px rgba(179,179,179,0.25);
+      appearance: none;
+      background-color: white;
+      border-radius: 10px;
+      width: 25%;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+      font-family: CairoLight;
+      font-size: 1em;
+      background-image: url('../img/arrow-down.svg');
+      background-repeat: no-repeat;
+      background-position: 90%;
+      background-size: 0.75em;
+    }
     .members {
       display: flex;
       flex-direction: row;

@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
 import Deadlines from "../components/comp_deadlines";
-import Dialog_deadlines from "../components/comp_dialog_deadlines";
-import Dialog_deadlines_edit from "../components/comp_dialog_deadlines_edit";
 import '../page_styles/style_deadlines.scss';
 import '../App.scss';
 
-export class Page_DeadLines extends Component {
+export class PageDeadLines extends Component {
     render() {
         function openForm() {
             const modal = (document.getElementById('deadlineModal')!);
@@ -22,8 +20,6 @@ export class Page_DeadLines extends Component {
                         </div>
                     </div>
                     <Deadlines apiLink={process.env.REACT_APP_API_DEADLINES}/>
-                    {/*<Dialog_deadlines apiLink={process.env.REACT_APP_API_MEMBERS}/>*/}
-                    {/*<Dialog_deadlines_edit apiLink={process.env.REACT_APP_API_DEADLINES}/>*/}
                 </div>
             </div>
         )

@@ -3,7 +3,7 @@ import '../component_styles/style_dialog_deadlines.scss';
 import '../App.scss';
 import axios from 'axios';
 
-const Dialog_notes = (props)  => {
+const DialogNotes = (props)  => {
     const [hasError, setErrors] =  useState(false)
     const [isLoaded, setIsLoaded] =  useState(false)
 
@@ -28,7 +28,7 @@ const Dialog_notes = (props)  => {
     }
 
     if (!isLoaded) {
-        return <div className={'loading-container'}><img className={'loading'} src={require('../img/loading.gif')}/></div>
+        return <div className={'loading-container'}><img className={'loading'} src={require('../img/loading.gif')} alt={'loading'}/></div>
     }
 
     if (hasError) {
@@ -80,4 +80,4 @@ const Dialog_notes = (props)  => {
     )
 }
 
-export default Dialog_notes;
+export default DialogNotes;

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import '../component_styles/style_deadlines.scss';
+import '../component_styles/style_comp_deadlines.scss';
 import '../App.scss';
-import {Link} from "react-router-dom";
 import Dialog_deadlines from "./comp_dialog_deadlines";
 import Dialog_deadlines_edit from "./comp_dialog_deadlines_edit";
 
@@ -18,7 +17,9 @@ const Deadlines = (props)  => {
         isActive: Boolean,
         members: []
     }])
-    let [editLink] = useState("http://localhost:3001/deadlines/5");
+    let [editLink] = useState<any[]>([{
+        link: "http://localhost:3001/deadlines/5"
+    }]);
 
     async function fetchData() {
         const res = await fetch(props.apiLink);
@@ -33,7 +34,7 @@ const Deadlines = (props)  => {
     }
 
     async function fetchDeadline() {
-        const res = await fetch(editLink);
+        const res = await fetch(editLink[0].link);
         res
             .json()
             .then((res) => {
@@ -146,21 +147,21 @@ const Deadlines = (props)  => {
 
     function setApiId(id) {
         const serverId = id;
-        editLink = process.env.REACT_APP_API_DEADLINES + "/" + serverId;
+        editLink[0].link = process.env.REACT_APP_API_DEADLINES + "/" + serverId;
         fetchDeadline();
     }
 
     function openEditForm() {
         const modal = (document.getElementById('deadlineEditModal')!);
         modal.classList.add('visible');
-        console.log(editLink);
+        console.log(deadline[0].members);
     }
 
     // @ts-ignore
     return (
         <div className={'deadlines-container'}>
             {deadlines.map((serverData, index) => (
-                <div id={"deadline" + serverData.id} className={'deadline'} key={index} onClick={() => setApiId(serverData.id)}>
+                <div id={"deadline" + serverData.id} className={'deadline'} key={index}>
                     <div className={'deadline-leftside'}>
                         <h3>{serverData.name}</h3>
                         <div className={'deadline-leftside__member-container'}>
@@ -169,14 +170,19 @@ const Deadlines = (props)  => {
                             ))}
                         </div>
                     </div>
-                    <div className={'days-remaining'}>
-                        <p id={'days' + serverData.id}>{(new Date (serverData.deadline)).toLocaleDateString("nl")}</p>
+                    <div className={'deadline-rightside'}>
+                        <div className={'days-remaining'}>
+                            <p id={'days' + serverData.id}>{(new Date (serverData.deadline)).toLocaleDateString("nl")}</p>
+                        </div>
+                        <div className={'deadline-rightside__add-image'} onClick={() => setApiId(serverData.id)}>
+                            <img id={'edit'} src={(require('../img/edit.svg'))} alt={'edit'}/>
+                        </div>
                     </div>
                 </div>
             ))}
             <Dialog_deadlines memberLink={process.env.REACT_APP_API_MEMBERS}/>
             <Dialog_deadlines_edit
-                deadlineLink={editLink}
+                deadlineLink={editLink[0].link}
                 memberLink={process.env.REACT_APP_API_MEMBERS}
                 id={deadline[0].id}
                 name={deadline[0].name}

@@ -1,15 +1,13 @@
 import React, { Component } from 'react';
 import Notes from "../components/comp_notes";
-import Notes_deadlines from "../components/comp_dialog_notes";
+import DialogNotes from "../components/comp_dialog_notes";
 import '../page_styles/style_notes.scss';
 import '../App.scss';
 
-export class Page_Notes extends Component {
+export class PageNotes extends Component {
     render() {
         function openForm() {
             const modal = (document.getElementById('notesModal')!);
-            const body = (document.querySelector('body')!);
-            // body.classList.add('darken');
             modal.classList.add('visible');
         }
         return (
@@ -22,7 +20,7 @@ export class Page_Notes extends Component {
                         </div>
                     </div>
                     <Notes apiLink={'http://localhost:3001/notes'}/>
-                    <Notes_deadlines apiLink={'http://localhost:3001/members'}/>
+                    <DialogNotes apiLink={'http://localhost:3001/members'}/>
                 </div>
             </div>
         )

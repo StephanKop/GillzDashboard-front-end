@@ -23,6 +23,11 @@
     &:hover {
       box-shadow: 0px 0px 15px 0px rgba(179,179,179,1);
     }
+
+    &:hover .deadline-rightside__add-image img {
+      opacity: 1;
+      width: 1em;
+    }
     &-leftside {
       display: flex;
       flex-direction: row;
@@ -47,9 +52,26 @@
       }
     }
     }
-    .days-remaining {
+    &-rightside {
       display: flex;
-      align-items: center;
+      flex-direction: row;
+      &__add-image {
+        margin-left: 1rem;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        border-radius: 100%;
+        img {
+          padding-top: 0.5rem;
+          height: 1em;
+          opacity: 0;
+          width: 0;
+          transition: all 0.2s ease;
+        }
+      }
+      .days-remaining {
+        display: flex;
+        align-items: center;
+      }
     }
   }
 }
