@@ -53,7 +53,7 @@ const Dialog_deadlines = (props)  => {
         const deadline = formData.elements['deadline'].value;
         const link = formData.elements['link'].value;
         let isActive = formData.elements['isActive'].value;
-        var boolValue = getBoolean(isActive);
+        let boolValue = getBoolean(isActive);
         function getBoolean(value){
             switch(value){
                 case true:
@@ -122,8 +122,6 @@ const Dialog_deadlines = (props)  => {
                         <option value={'false'}>Nee</option>
                         <option value={'true'}>Ja</option>
                     </select>
-                    {/*<input className={'deadlineForm__link'} type={'radio'} name={'isActive'}/>*/}
-                    {/*<input className={'deadlineForm__link'} type={'radio'} name={'isActive'}/>*/}
                         <div className={'members'}>
                             <div className={'members__section'}>
                                 <label className={'members__section--title'}>Member 1</label>
