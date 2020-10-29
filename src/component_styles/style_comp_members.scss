@@ -1,0 +1,59 @@
+@import "../App";
+
+.members-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 20%);
+  grid-column-gap: 3rem;
+  grid-row-gap: 3rem;
+  .member {
+    background: white;
+    border-radius: 10px;
+    box-shadow: $shadow;
+    height: 100%;
+    &__image {
+      width: 100%;
+      height: 50%;
+      max-height: 12rem;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+    &__name {
+      padding-left: 0.5rem;
+    }
+    &__present {
+      padding-left: 0.5rem;
+    }
+    &__bottom-section {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      &__present {
+        padding-left: 0.5rem;
+      }
+      img {
+        transform: translateX(10%);
+        opacity: 0;
+        padding-right: 0.5rem;
+        width: 1em;
+        height: 1em;
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+    }
+    &:hover .member__bottom-section img{
+      transform: translateX(0%);
+      opacity: 1;
+    }
+  }
+}
+
+.red {
+  //color: white;
+  //background: $gillzRed !important;
+  opacity: 0.20;
+}
+
+.red2 {
+  color: white;
+  background: $gillzRed !important;
+}

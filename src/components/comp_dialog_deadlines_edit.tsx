@@ -48,6 +48,17 @@ const Dialog_deadlines_edit = (props)  => {
         modal.classList.remove('visible');
     }
 
+    function deleteRequest() {
+        axios.delete(props.deadlineLink)
+            .then(function (response) {
+                console.log(response);
+                closeForm();
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }
+
     function sendForm(this: any) {
         let formData = document.querySelector("#deadlineEditForm")! as HTMLFormElement;
         // const id = formData.elements['id'].value;
@@ -154,7 +165,10 @@ const Dialog_deadlines_edit = (props)  => {
                         </select>
                     </div>
                 </div>
-                <input type={'button'} onClick={sendForm} value={'Verzenden'} className={'submitButton'}/>
+                <div className={'deadlineForm__buttons'}>
+                    <input type={'button'} onClick={deleteRequest} value={'Verwijderen'} className={'deleteButton'}/>
+                    <input type={'button'} onClick={sendForm} value={'Verzenden'} className={'submitButton'}/>
+                </div>
             </form>
         </div>
     )

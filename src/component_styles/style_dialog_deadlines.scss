@@ -132,11 +132,34 @@
       border-radius: 10px;
       transition: all 0.2s ease;
       cursor: pointer;
+      color: $gillzBlue;
+      border: 2px solid transparent;
+      &:hover {
+        background-color: #56EB95;
+        color: white;
+        box-shadow: 0px 0px 15px 0px rgba(179,179,179,0.5);
+      }
+    }
+    .deleteButton {
+      width: 25%;
+      appearance: none;
+      border: none;
+      background-color: transparent;
+      padding: 0.5em;
+      box-shadow: 0px 0px 15px 0px rgba(179,179,179,0.25);
+      border-radius: 10px;
+      transition: all 0.2s ease;
+      cursor: pointer;
+      border: 2px solid transparent;
       &:hover {
         background-color: $gillzRed;
         color: white;
         box-shadow: 0px 0px 15px 0px rgba(179,179,179,0.5);
       }
+    }
+    &__buttons{
+      display: flex;
+      justify-content: space-between;
     }
   }
 }
