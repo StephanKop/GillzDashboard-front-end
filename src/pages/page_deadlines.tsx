@@ -7,7 +7,9 @@ export class PageDeadLines extends Component {
     render() {
         function openForm() {
             const modal = (document.getElementById('deadlineModal')!);
-            modal.classList.add('visible');
+            modal.classList.add('visibleAnim');
+            const modalBackground = (document.getElementById('modalBackground')!);
+            modalBackground.classList.add('visible');
         }
 
         return (

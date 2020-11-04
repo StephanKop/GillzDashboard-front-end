@@ -40,7 +40,9 @@ const Dialog_member_edit = (props)  => {
 
     function closeForm() {
         const modal = (document.getElementById('memberEditModal')!);
-        modal.classList.remove('visible');
+        modal.classList.remove('visibleAnim');
+        const modalBackground = (document.getElementById('modalBackground')!);
+        modalBackground.classList.remove('visible');
     }
 
     function sendForm(this: any) {

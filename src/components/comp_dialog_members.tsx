@@ -37,7 +37,9 @@ const DialogMembers = (props)  => {
 
     function closeForm() {
         const modal = (document.getElementById('membersModal')!);
-        modal.classList.remove('visible');
+        modal.classList.remove('visibleAnim');
+        const modalBackground = (document.getElementById('modalBackground')!);
+        modalBackground.classList.remove('visible');
     }
 
     function sendForm(this: any) {
@@ -76,24 +78,28 @@ const DialogMembers = (props)  => {
     }
 
     return (
-        <div id="membersModal" className={'animate__animated animate__bounce modal'}>
-            <div className={'modal__top'}>
-                <h2>Member toevoegen</h2>
-                <img id={'cancel'} className={'modal__top--img'} src={(require('../img/add.svg'))} alt={'add'} onClick={closeForm}/>
+        <>
+            <div id="membersModal" className={'animate__animated animate__bounce modal'}>
+                <div className={'modal__top'}>
+                    <h2>Member toevoegen</h2>
+                    <img id={'cancel'} className={'modal__top--img'} src={(require('../img/add.svg'))} alt={'add'}
+                         onClick={closeForm}/>
+                </div>
+                <form method="post" encType='application/json' id={'deadlineForm'} className={'deadlineForm'}>
+                    <label className={'deadlineForm__label'}>Naam</label>
+                    <input className={'deadlineForm__name'} type={'text'} name={'name'} placeholder={'Naam...'}/>
+                    <label className={'deadlineForm__label'}>Profielfoto URL</label>
+                    <input className={'deadlineForm__date'} type={'text'} name={'image'} placeholder={'URL...'}/>
+                    <label className={'deadlineForm__label'}>Aanwezig</label>
+                    <select name={'present'} className={'deadlineForm__select'}>
+                        <option value={'false'}>Nee</option>
+                        <option value={'true'}>Ja</option>
+                    </select>
+                    <input type={'button'} onClick={sendForm} value={'Verzenden'} className={'submitButton'}/>
+                </form>
             </div>
-            <form method="post" encType='application/json' id={'deadlineForm'} className={'deadlineForm'}>
-                <label className={'deadlineForm__label'}>Naam</label>
-                <input className={'deadlineForm__name'} type={'text'} name={'name'} placeholder={'Naam...'}/>
-                <label className={'deadlineForm__label'}>Profielfoto URL</label>
-                <input className={'deadlineForm__date'} type={'text'} name={'image'} placeholder={'URL...'}/>
-                <label className={'deadlineForm__label'}>Aanwezig</label>
-                <select name={'present'} className={'deadlineForm__select'}>
-                    <option value={'false'}>Nee</option>
-                    <option value={'true'}>Ja</option>
-                </select>
-                <input type={'button'} onClick={sendForm} value={'Verzenden'} className={'submitButton'}/>
-            </form>
-        </div>
+            <div className={'modal-background'} id={"modalBackground"}></div>
+        </>
     )
 }
 

@@ -8,7 +8,9 @@ export class PageNotes extends Component {
     render() {
         function openForm() {
             const modal = (document.getElementById('notesModal')!);
-            modal.classList.add('visible');
+            modal.classList.add('visibleAnim');
+            const modalBackground = (document.getElementById('modalBackground')!);
+            modalBackground.classList.add('visible');
         }
         return (
             <div className={'content'}>

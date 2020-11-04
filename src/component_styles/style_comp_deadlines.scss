@@ -20,6 +20,7 @@
     box-shadow: 0px 0px 15px 0px rgba(179,179,179,0.5);
     justify-content: space-between;
     transition: all 0.5s ease;
+    min-width: 30% !important;
     &:hover {
       box-shadow: 0px 0px 15px 0px rgba(179,179,179,1);
     }

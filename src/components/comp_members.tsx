@@ -73,7 +73,9 @@ const Members = (props)  => {
 
     function openEditForm() {
         const modal = (document.getElementById('memberEditModal')!);
-        modal.classList.add('visible');
+        modal.classList.add('visibleAnim');
+        const modalBackground = (document.getElementById('modalBackground')!);
+        modalBackground.classList.add('visible');
     }
 
     function setApiId(id) {

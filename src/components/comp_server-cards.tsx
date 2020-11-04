@@ -22,7 +22,7 @@ const Servercards = (props)  => {
 
     useEffect(() => {
         // fetchData();
-        let interval = setInterval(() => fetchData(), (1000 * 5))
+        let interval = setInterval(() => fetchData(), (1000 * 2))
         return () => clearInterval(interval)
     }, [isLoaded]);
 

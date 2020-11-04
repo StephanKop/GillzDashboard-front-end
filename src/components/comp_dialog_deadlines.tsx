@@ -1,14 +1,14 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useContext} from 'react';
 import '../component_styles/style_dialog_deadlines.scss';
 import '../App.scss';
 import axios from 'axios';
+import {ReloadContext} from '../context/reloadContext'
 
 const Dialog_deadlines = (props)  => {
     const [hasError, setErrors] =  useState(false)
     const [isLoaded, setIsLoaded] =  useState(false)
-    // const [DeadlineIsLoaded, setDeadlineIsLoaded] =  useState(false)
     const [members,setMembers ]= useState<any[]>([])
-    // const [deadline,setDeadline ]= useState<any[]>([])
+    const [count, setCount] = useContext(ReloadContext);
     let [members0]= useState(Number);
     let [members1]= useState(Number);
     let [members2]= useState(Number);
@@ -26,9 +26,10 @@ const Dialog_deadlines = (props)  => {
 
     useEffect(() => {
         fetchData();
+        console.log('joe');
         // let interval = setInterval(() => fetchData(), (1000))
         // return () => clearInterval(interval)
-    }, [isLoaded]);
+    }, [count]);
 
     if (isLoaded) {
         // convertDate();
@@ -44,7 +45,9 @@ const Dialog_deadlines = (props)  => {
 
         function closeForm() {
             const modal = (document.getElementById('deadlineModal')!);
-            modal.classList.remove('visible');
+            modal.classList.remove('visibleAnim');
+            const modalBackground = (document.getElementById('modalBackground')!);
+            modalBackground.classList.remove('visible');
         }
 
     function sendForm(this: any) {
@@ -87,7 +90,8 @@ const Dialog_deadlines = (props)  => {
             members.push(memberObj2);
         }
 
-        // @ts-ignore
+
+        if (!!process.env.REACT_APP_API_DEADLINES) {
         axios.post(process.env.REACT_APP_API_DEADLINES, {
             name: name,
             deadline: deadline,
@@ -98,17 +102,21 @@ const Dialog_deadlines = (props)  => {
             .then(function (response) {
                 console.log(response);
                 closeForm();
+                props.reload();
             })
             .catch(function (error) {
                 console.log(error);
             });
         }
+    }
 
     return (
-            <div id="deadlineModal" className={'animate__animated animate__bounce modal'}>
+        <>
+            <div id="deadlineModal" className={'modal'}>
                 <div className={'modal__top'}>
                     <h2>Deadline toevoegen</h2>
-                    <img id={'cancel'} className={'modal__top--img'} src={(require('../img/add.svg'))} alt={'add'} onClick={closeForm}/>
+                    <img id={'cancel'} className={'modal__top--img'} src={(require('../img/add.svg'))} alt={'add'}
+                         onClick={closeForm}/>
                 </div>
                 <form method="post" encType='application/json' id={'deadlineForm'} className={'deadlineForm'}>
                     <label className={'deadlineForm__label'}>Naam</label>
@@ -122,38 +130,43 @@ const Dialog_deadlines = (props)  => {
                         <option value={'false'}>Nee</option>
                         <option value={'true'}>Ja</option>
                     </select>
-                        <div className={'members'}>
-                            <div className={'members__section'}>
-                                <label className={'members__section--title'}>Member 1</label>
-                                <select name={'members[0][id]'} className={'member__section--select'}>
-                                    <option value={""}>Geen</option>
-                                    {members.map((memberData, index) => (
-                                        <option key={index} value={memberData.id} id={memberData.id}>{memberData.name}</option>
-                                    ))}
-                                </select>
-                            </div>
-                            <div className={'members__section'}>
-                                <label className={'members__section--title'}>Member 2</label>
-                                <select name={'members[1][id]'}>
-                                    <option value={""}>Geen</option>
-                                    {members.map((memberData, index) => (
-                                        <option key={index} value={memberData.id} id={memberData.id}>{memberData.name}</option>
-                                    ))}
-                                </select>
-                            </div>
-                            <div className={'members__section'}>
-                                <label className={'members__section--title'}>Member 3</label>
-                                <select name={'members[2][id]'}>
-                                    <option value={""}>Geen</option>
+                    <div className={'members'}>
+                        <div className={'members__section'}>
+                            <label className={'members__section--title'}>Member 1</label>
+                            <select name={'members[0][id]'} className={'member__section--select'}>
+                                <option value={""}>Geen</option>
                                 {members.map((memberData, index) => (
-                                    <option key={index} value={memberData.id} id={memberData.id}>{memberData.name}</option>
+                                    <option key={index} value={memberData.id}
+                                            id={memberData.id}>{memberData.name}</option>
                                 ))}
-                                </select>
-                            </div>
+                            </select>
                         </div>
+                        <div className={'members__section'}>
+                            <label className={'members__section--title'}>Member 2</label>
+                            <select name={'members[1][id]'}>
+                                <option value={""}>Geen</option>
+                                {members.map((memberData, index) => (
+                                    <option key={index} value={memberData.id}
+                                            id={memberData.id}>{memberData.name}</option>
+                                ))}
+                            </select>
+                        </div>
+                        <div className={'members__section'}>
+                            <label className={'members__section--title'}>Member 3</label>
+                            <select name={'members[2][id]'}>
+                                <option value={""}>Geen</option>
+                                {members.map((memberData, index) => (
+                                    <option key={index} value={memberData.id}
+                                            id={memberData.id}>{memberData.name}</option>
+                                ))}
+                            </select>
+                        </div>
+                    </div>
                     <input type={'button'} onClick={sendForm} value={'Verzenden'} className={'submitButton'}/>
                 </form>
             </div>
+            <div className={'modal-background'} id={"modalBackground"}></div>
+        </>
         )
 }
 

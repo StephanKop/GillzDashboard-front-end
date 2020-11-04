@@ -45,7 +45,9 @@ const Dialog_deadlines_edit = (props)  => {
 
     function closeForm() {
         const modal = (document.getElementById('deadlineEditModal')!);
-        modal.classList.remove('visible');
+        modal.classList.remove('visibleAnim');
+        const modalBackground = (document.getElementById('modalEditBackground')!);
+        modalBackground.classList.remove('visible');
     }
 
     function deleteRequest() {
@@ -117,60 +119,71 @@ const Dialog_deadlines_edit = (props)  => {
         }
 
     return (
-        <div id="deadlineEditModal" className={'animate__animated animate__bounce modal'}>
-            <div className={'modal__top'}>
-                <h2>Deadline wijzigen</h2>
-                <img id={'cancel'} className={'modal__top--img'} src={(require('../img/add.svg'))} alt={'add'} onClick={closeForm}/>
+        <>
+            <div id="deadlineEditModal" className={'animate__animated animate__bounce modal'}>
+                <div className={'modal__top'}>
+                    <h2>Deadline wijzigen</h2>
+                    <img id={'cancel'} className={'modal__top--img'} src={(require('../img/add.svg'))} alt={'add'}
+                         onClick={closeForm}/>
+                </div>
+                <form method="post" encType='application/json' id={'deadlineEditForm'} className={'deadlineForm'}>
+                    <label className={'deadlineForm__label'}>ID</label>
+                    <input className={'deadlineForm__name'} type={'text'} name={'id'} placeholder={props.id}
+                           value={props.id} disabled/>
+                    <label className={'deadlineForm__label'}>Naam</label>
+                    <input className={'deadlineForm__name'} type={'text'} name={'name'} placeholder={props.name}
+                           defaultValue={props.name}/>
+                    <label className={'deadlineForm__label'}>Datum</label>
+                    <input className={'deadlineForm__date'} type={'date'} name={'deadline'}/>
+                    <label className={'deadlineForm__label'}>Link</label>
+                    <input className={'deadlineForm__link'} type={'text'} name={'link'} placeholder={props.link}
+                           defaultValue={props.link}/>
+                    <label className={'deadlineForm__label'}>Op dashboard</label>
+                    <select name={'isActive'} className={'deadlineForm__select'}>
+                        <option value={'false'}>Nee</option>
+                        <option value={'true'}>Ja</option>
+                    </select>
+                    <div className={'members'}>
+                        <div className={'members__section'}>
+                            <label className={'members__section--title'}>Member 1</label>
+                            <select name={'members[0][id]'} className={'member__section--select'}>
+                                <option value={""}>Geen</option>
+                                {members.map((memberData, index) => (
+                                    <option key={index} value={memberData.id}
+                                            id={memberData.id}>{memberData.name}</option>
+                                ))}
+                            </select>
+                        </div>
+                        <div className={'members__section'}>
+                            <label className={'members__section--title'}>Member 2</label>
+                            <select name={'members[1][id]'}>
+                                <option value={""}>Geen</option>
+                                {members.map((memberData, index) => (
+                                    <option key={index} value={memberData.id}
+                                            id={memberData.id}>{memberData.name}</option>
+                                ))}
+                            </select>
+                        </div>
+                        <div className={'members__section'}>
+                            <label className={'members__section--title'}>Member 3</label>
+                            <select name={'members[2][id]'}>
+                                <option value={""}>Geen</option>
+                                {members.map((memberData, index) => (
+                                    <option key={index} value={memberData.id}
+                                            id={memberData.id}>{memberData.name}</option>
+                                ))}
+                            </select>
+                        </div>
+                    </div>
+                    <div className={'deadlineForm__buttons'}>
+                        <input type={'button'} onClick={deleteRequest} value={'Verwijderen'}
+                               className={'deleteButton'}/>
+                        <input type={'button'} onClick={sendForm} value={'Verzenden'} className={'submitButton'}/>
+                    </div>
+                </form>
             </div>
-            <form method="post" encType='application/json' id={'deadlineEditForm'} className={'deadlineForm'}>
-                <label className={'deadlineForm__label'}>ID</label>
-                <input className={'deadlineForm__name'} type={'text'} name={'id'} placeholder={props.id} value={props.id} disabled/>
-                <label className={'deadlineForm__label'}>Naam</label>
-                <input className={'deadlineForm__name'} type={'text'} name={'name'} placeholder={props.name} defaultValue={props.name}/>
-                <label className={'deadlineForm__label'}>Datum</label>
-                <input className={'deadlineForm__date'} type={'date'} name={'deadline'}/>
-                <label className={'deadlineForm__label'}>Link</label>
-                <input className={'deadlineForm__link'} type={'text'} name={'link'} placeholder={props.link} defaultValue={props.link}/>
-                <label className={'deadlineForm__label'}>Op dashboard</label>
-                <select name={'isActive'} className={'deadlineForm__select'}>
-                    <option value={'false'}>Nee</option>
-                    <option value={'true'}>Ja</option>
-                </select>
-                <div className={'members'}>
-                    <div className={'members__section'}>
-                        <label className={'members__section--title'}>Member 1</label>
-                        <select name={'members[0][id]'} className={'member__section--select'}>
-                            <option value={""}>Geen</option>
-                            {members.map((memberData, index) => (
-                                <option key={index} value={memberData.id} id={memberData.id}>{memberData.name}</option>
-                            ))}
-                        </select>
-                    </div>
-                    <div className={'members__section'}>
-                        <label className={'members__section--title'}>Member 2</label>
-                        <select name={'members[1][id]'}>
-                            <option value={""}>Geen</option>
-                            {members.map((memberData, index) => (
-                                <option key={index} value={memberData.id} id={memberData.id}>{memberData.name}</option>
-                            ))}
-                        </select>
-                    </div>
-                    <div className={'members__section'}>
-                        <label className={'members__section--title'}>Member 3</label>
-                        <select name={'members[2][id]'}>
-                            <option value={""}>Geen</option>
-                            {members.map((memberData, index) => (
-                                <option key={index} value={memberData.id} id={memberData.id}>{memberData.name}</option>
-                            ))}
-                        </select>
-                    </div>
-                </div>
-                <div className={'deadlineForm__buttons'}>
-                    <input type={'button'} onClick={deleteRequest} value={'Verwijderen'} className={'deleteButton'}/>
-                    <input type={'button'} onClick={sendForm} value={'Verzenden'} className={'submitButton'}/>
-                </div>
-            </form>
-        </div>
+            <div className={'modal-background'} id={"modalEditBackground"}></div>
+        </>
     )
 }
 

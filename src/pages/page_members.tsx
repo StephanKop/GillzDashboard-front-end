@@ -11,7 +11,9 @@ const PageMembers = (props)  => {
 
     function openForm() {
         const modal = (document.getElementById('membersModal')!);
-        modal.classList.add('visible');
+        modal.classList.add('visibleAnim');
+        const modalBackground = (document.getElementById('modalBackground')!);
+        modalBackground.classList.add('visible');
     }
     return (
         <div className={'content'}>

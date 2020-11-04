@@ -37,7 +37,9 @@ const DialogNotes = (props)  => {
 
     function closeForm() {
         const modal = (document.getElementById('notesModal')!);
-        modal.classList.remove('visible');
+        modal.classList.remove('visibleAnim');
+        const modalBackground = (document.getElementById('modalBackground')!);
+        modalBackground.classList.remove('visible');
     }
 
     function sendForm(this: any) {
@@ -62,21 +64,28 @@ const DialogNotes = (props)  => {
     }
 
     return (
-        <div id="notesModal" className={'animate__animated animate__bounce modal'}>
-            <div className={'modal__top'}>
-                <h2>Deadline toevoegen</h2>
-                <img id={'cancel'} className={'modal__top--img'} src={(require('../img/add.svg'))} alt={'add'} onClick={closeForm}/>
+        <>
+            <div id="notesModal" className={'animate__animated animate__bounce modal'}>
+                <div className={'modal__top'}>
+                    <h2>Notitie toevoegen</h2>
+                    <img id={'cancel'} className={'modal__top--img'} src={(require('../img/add.svg'))} alt={'add'}
+                         onClick={closeForm}/>
+                </div>
+                <form method="post" encType='application/json' action="http://192.168.2.14:3001/deadlines"
+                      id={'deadlineForm'} className={'deadlineForm'}>
+                    <label className={'deadlineForm__label'}>Titel</label>
+                    <input className={'deadlineForm__name'} type={'text'} name={'title'} placeholder={'Titel...'}/>
+                    <label className={'deadlineForm__label'}>Beschrijving</label>
+                    <textarea className={'deadlineForm__date'} name={'description'}
+                           placeholder={'Beschrijving...'}/>
+                    <label className={'deadlineForm__label'}>Datum</label>
+                    <input className={'deadlineForm__date'} type={'date'} name={'date'} placeholder={'Date'}/>
+                    <input type={'button'} onClick={sendForm} value={'Verzenden'} className={'submitButton'}/>
+                </form>
             </div>
-            <form method="post" encType='application/json' action="http://192.168.2.14:3001/deadlines" id={'deadlineForm'} className={'deadlineForm'}>
-                <label className={'deadlineForm__label'}>Titel</label>
-                <input className={'deadlineForm__name'} type={'text'} name={'title'} placeholder={'Titel...'}/>
-                <label className={'deadlineForm__label'}>Beschrijving</label>
-                <input className={'deadlineForm__date'} type={'textarea'} name={'description'} placeholder={'Beschrijving...'}/>
-                <label className={'deadlineForm__label'}>Datum</label>
-                <input className={'deadlineForm__date'} type={'date'} name={'date'} placeholder={'Date'}/>
-                <input type={'button'} onClick={sendForm} value={'Verzenden'} className={'submitButton'}/>
-            </form>
-        </div>
+            <div className={'modal-background'} id={"modalBackground"}></div>
+        </>
+
     )
 }
 
