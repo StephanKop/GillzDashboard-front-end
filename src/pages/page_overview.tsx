@@ -18,12 +18,12 @@ export class PageOverview extends Component {
                             <h3 className={'server-container--serverDeadlines'}>Deadlines</h3>
                             {/*<Deadlines apiLink={"http://localhost:3001/deadlines/four"}/>*/}
                             <div className={'server-container__deadlines'}>
-                                <Deadlines apiLink={process.env.REACT_APP_API_DEADLINES_FOUR}/>
+                                <Deadlines apiLink={process.env.REACT_APP_API_DEADLINES_FOUR} displayDateSort={'none'} displayNameSort={'none'} displayTitle={'none'} displayEdit={'0'}/>
                             </div>
                         </div>
 
                         <div>
-                            <h3 className={'server-container--serverDeadlines'}>Zendesk</h3>
+                            <h3 className={'server-container--serverDeadlines'}>Builds</h3>
                             {/*<Deadlines/>*/}
                         </div>
 

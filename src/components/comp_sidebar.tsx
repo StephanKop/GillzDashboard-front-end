@@ -22,32 +22,72 @@ export class Sidebar extends Component {
             <Router>
             <div className={'sidebar'}>
                 <div className={'sidebar__top'}>
-                    <NavLink to="/" className={'sidebar__top--link'} activeClassName='nav-active' exact={true}>
-                        <img src={require('../img/dashboard.svg')} alt={'home-link'}/>
-                    </NavLink>
-                    <NavLink to="/deadlines" className={'sidebar__top--link'} activeClassName='nav-active' exact={true}>
-                        <img src={require('../img/calendar.svg')} alt={'deadlines-link'}/>
-                    </NavLink>
-                    <NavLink to="/issues" className={'sidebar__top--link'} activeClassName='nav-active' exact={true}>
-                        <img src={require('../img/laptop.svg')} alt={'issues-link'}/>
-                    </NavLink>
-                    <NavLink to="/notes" className={'sidebar__top--link'} activeClassName='nav-active' exact={true}>
-                        <img src={require('../img/notes.svg')} alt={'notes-link'}/>
-                    </NavLink>
-                    <NavLink to="/projecten" className={'sidebar__top--link'} activeClassName='nav-active' exact={true}>
-                        <img src={require('../img/projecten.svg')} alt={'projecten-link'}/>
-                    </NavLink>
-                    <NavLink to="/builds" className={'sidebar__top--link'} activeClassName='nav-active' exact={true}>
-                        <img src={require('../img/toolbox.svg')} alt={'builds-link'}/>
-                    </NavLink>
-                    <NavLink to="/members" className={'sidebar__top--link'} activeClassName='nav-active' exact={true}>
-                        <img src={require('../img/team.svg')} alt={'members-link'}/>
-                    </NavLink>
+                    <div className={'sidebar__top__item-container'}>
+                        <NavLink to="/" id={'home-link'} className={'sidebar__top__item-container--link'} activeClassName='nav-active' exact={true}>
+                            <button id={'home-button'} style={{backgroundImage: "url(" + require('../img/dashboard.svg') + ")"}}>
+                                {/*<img src={require('../img/dashboard.svg')} alt={'home-link'}/>*/}
+                            </button>
+                        </NavLink>
+                        <label htmlFor={'home-button'} className={'nav-label'}>Home</label>
+                    </div>
+                    <div className={'sidebar__top__item-container'}>
+                        <NavLink to="/deadlines" className={'sidebar__top__item-container--link'} activeClassName='nav-active' exact={true}>
+                            <button id={'deadlines-button'} style={{backgroundImage: "url(" + require('../img/calendar.svg') + ")"}}>
+                                {/*<img src={require('../img/calendar.svg')} alt={'deadlines-link'}/>*/}
+                            </button>
+                        </NavLink>
+                        <label htmlFor={'deadlines-button'} >Deadlines</label>
+                    </div>
+                    <div className={'sidebar__top__item-container'}>
+                        <NavLink to="/issues" className={'sidebar__top__item-container--link'} activeClassName='nav-active' exact={true}>
+                            <button id={'zendesk-button'} style={{backgroundImage: "url(" + require('../img/laptop.svg') + ")"}}>
+                                {/*<img src={require('../img/calendar.svg')} alt={'deadlines-link'}/>*/}
+                            </button>
+                        </NavLink>
+                        <label htmlFor={'zendesk-button'}>Zendesk</label>
+                    </div>
+                    <div className={'sidebar__top__item-container'}>
+                        <NavLink to="/notes" className={'sidebar__top__item-container--link'} activeClassName='nav-active' exact={true}>
+                            <button id={'notes-button'} style={{backgroundImage: "url(" + require('../img/notes.svg') + ")"}}>
+                                {/*<img src={require('../img/notes.svg')} alt={'notes-link'}/>*/}
+                            </button>
+                        </NavLink>
+                        <label htmlFor={'notes-button'}>Notities</label>
+                    </div>
+                    <div className={'sidebar__top__item-container'}>
+                        <NavLink to="/projecten" className={'sidebar__top__item-container--link'} activeClassName='nav-active' exact={true}>
+                            <button id={'projects-button'} style={{backgroundImage: "url(" + require('../img/projecten.svg') + ")"}}>
+                                {/*<img src={require('../img/projecten.svg')} alt={'projecten-link'}/>*/}
+                            </button>
+                        </NavLink>
+                        <label htmlFor={'projects-button'}>Projecten</label>
+                    </div>
+                    <div className={'sidebar__top__item-container'}>
+                        <NavLink to="/builds" className={'sidebar__top__item-container--link'} activeClassName='nav-active' exact={true}>
+                            <button id={'builds-button'} style={{backgroundImage: "url(" + require('../img/toolbox.svg') + ")"}}>
+                                {/*<img src={require('../img/toolbox.svg')} alt={'builds-link'}/>*/}
+                            </button>
+                        </NavLink>
+                        <label htmlFor={'builds-button'}>Builds</label>
+                    </div>
+                    <div className={'sidebar__top__item-container'}>
+                        <NavLink to="/members" className={'sidebar__top__item-container--link'} activeClassName='nav-active' exact={true}>
+                            <button id={'members-button'} style={{backgroundImage: "url(" + require('../img/team.svg') + ")"}}>
+                                {/*<img src={require('../img/team.svg')} alt={'members-link'}/>*/}
+                            </button>
+                        </NavLink>
+                        <label htmlFor={'members-button'}>Members</label>
+                    </div>
                 </div>
                 <div className={'sidebar__bottom'}>
-                    <NavLink to="/settings" className={'sidebar__bottom--link'} activeClassName='nav-active' exact={true}>
-                        <img src={require('../img/settings.svg')} alt={'home-link'}/>
-                    </NavLink>
+                    <div className={'sidebar__bottom__item-container'}>
+                        <NavLink to="/settings" className={'sidebar__bottom__item-container--link'} activeClassName='nav-active' exact={true}>
+                            <button id={'settings-button'} style={{backgroundImage: "url(" + require('../img/settings.svg') + ")"}}>
+                            {/*<img src={require('../img/settings.svg')} alt={'settings-link'}/>*/}
+                            </button>
+                        </NavLink>
+                        <label htmlFor={'settings-button'}>Settings</label>
+                    </div>
                 </div>
             </div>
                 <Switch>

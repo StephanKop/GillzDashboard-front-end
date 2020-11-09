@@ -1,16 +1,33 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect, useImperativeHandle} from 'react';
 import '../component_styles/style_comp_deadlines.scss';
 import '../App.scss';
 import Dialog_deadlines from "./comp_dialog_deadlines";
 import Dialog_deadlines_edit from "./comp_dialog_deadlines_edit";
+import moment from "moment";
 
 const Deadlines = (props)  => {
+    // interface deadlinesProperties {
+    //     id: Number,
+    //     name: string,
+    //     deadline: Date,
+    //     link: string,
+    //     isActive: Boolean,
+    //     members: [
+    //         {
+    //             id: Number,
+    //             name: string,
+    //             image: string,
+    //             present: boolean
+    //         }
+    //     ]
+    // }
     const [hasError, setErrors] =  useState(false)
     const [isLoaded, setIsLoaded] =  useState(false)
     const [DeadlineIsLoaded, setDeadlineIsLoaded] =  useState(false)
     const [count, setCount] = useState(0);
-    const [deadlines,setDeadlines ] = useState<any[]>([])
-    const [deadline,setDeadline ] = useState<any[]>([{
+    let [deadlines,setDeadlines ] = useState<any[]>([])
+    let [fetchUrl, setFetchUrl] = useState(props.apiLink)
+    const [deadline,setDeadline ] = useState([{
         id: 0,
         name: "",
         deadline: Date,
@@ -19,11 +36,11 @@ const Deadlines = (props)  => {
         members: []
     }])
     let [editLink] = useState([{
-        link: "http://localhost:3001/deadlines/5"
+        link: ""
     }]);
 
     async function fetchData() {
-        const res = await fetch(props.apiLink);
+        const res = await fetch(fetchUrl);
         res
             .json()
             .then((res) => {
@@ -48,20 +65,20 @@ const Deadlines = (props)  => {
         return true;
     }
 
-
     useEffect(() => {
         fetchData();
-        console.log('joe');
+        setAlertColor();
         // let interval = setInterval(() => fetchData(), (1000 * 60 * 60))
         // return () => clearInterval(interval)
-    }, [isLoaded, count]);
+    }, [isLoaded, count, fetchUrl]);
 
     function reload () {
         setCount(count + 1);
     }
 
     if (isLoaded) {
-        // deadlineLength();
+        setAlertColor();
+        // setTimeout(addGradientLength, 3000)
     }
 
     if (DeadlineIsLoaded) {
@@ -78,86 +95,38 @@ const Deadlines = (props)  => {
 
     function deadlineLength(deadline: any): number {
         const currentDate = new Date();
-        const oneDay = 24 * 60 * 60 * 1000;
-        const joe = new Date(deadline.deadline);
-        // @ts-ignore
-        let diffDays = Math.round(Math.round((joe - currentDate) / oneDay));
-        // let deadlineWidth = document.querySelectorAll("#deadline" + deadlines[i].id);
-        return diffDays;
+        const oneDay = 24 * 60 * 60;
+        const milPerDay = 1000 * 60 * 60 * 24;
+        const deadlineDate = new Date(deadline.deadline);
+        let diffDays = Math.abs(currentDate.getTime() - deadlineDate.getTime());
+        let newDays = Math.ceil(diffDays / milPerDay);
+        return newDays;
+    }
 
-
-        // Object.keys(deadlines).map((i) => {
-        //
-        //     // Math.clamp(diffDays, 30, 100)
-        //     deadlineWidth.forEach((element) => {
-        //         element.style.width = diffDays + "%";
-        //     });
-
-            // if (0 >= diffDays) {
-            //     let zero = document.querySelectorAll("#deadline" + deadlines[i].id);
-            //     let days = document.querySelectorAll("#days" + deadlines[i].id);
-            //     zero.forEach(function (el) {
-            //         el.classList.add('hidden');
-            //     });
-            // } else if (0 <= diffDays && diffDays < 9) {
-            //     let zero = document.querySelectorAll("#deadline" + deadlines[i].id);
-            //     let days = document.querySelectorAll("#days" + deadlines[i].id);
-            //     zero.forEach(function (el) {
-            //         el.classList.add('zerodays');
-            //         // el.classList.add('deadline--alert');
-            //     });
-            // } else if (10 <= diffDays && diffDays < 19) {
-            //         let ten = document.querySelectorAll("#deadline" + deadlines[i].id);
-            //         ten.forEach(function (el) {
-            //             el.classList.add('tendays');
-            //         });
-            // } else if (20 <= diffDays && diffDays < 29) {
-            //         let twenty = document.querySelectorAll("#deadline" + deadlines[i].id);
-            //         twenty.forEach(function (el) {
-            //             el.classList.add('twentydays');
-            //         });
-            // } else if (30 <= diffDays && diffDays < 39) {
-            //         let thirty = document.querySelectorAll("#deadline" + deadlines[i].id);
-            //         thirty.forEach(function (el) {
-            //             el.classList.add('thirtydays');
-            //         });
-            // } else if (40 <= diffDays && diffDays < 49) {
-            //         let fourty = document.querySelectorAll("#deadline" + deadlines[i].id);
-            //         fourty.forEach(function (el) {
-            //             el.classList.add('fourtydays');
-            //         });
-            // } else if (50 <= diffDays && diffDays < 59) {
-            //         let fifty = document.querySelectorAll("#deadline" + deadlines[i].id);
-            //         fifty.forEach(function (el) {
-            //             el.classList.add('fiftydays');
-            //         });
-            // } else if (60 <= diffDays && diffDays < 69) {
-            //         let sixty = document.querySelectorAll("#deadline" + deadlines[i].id);
-            //         sixty.forEach(function (el) {
-            //             el.classList.add('sixtydays');
-            //         });
-            // } else if (70 <= diffDays && diffDays < 79) {
-            //         let seventy = document.querySelectorAll("#deadline" + deadlines[i].id);
-            //         seventy.forEach(function (el) {
-            //             el.classList.add('seventydays');
-            //         });
-            // } else if (80 <= diffDays && diffDays < 89) {
-            //         let eighty = document.querySelectorAll("#deadline" + deadlines[i].id);
-            //         eighty.forEach(function (el) {
-            //             el.classList.add('eightydays');
-            //         });
-            // } else if (90 <= diffDays && diffDays < 99) {
-            //         let ninety = document.querySelectorAll("#deadline" + deadlines[i].id);
-            //         ninety.forEach(function (el) {
-            //             el.classList.add('ninetydays');
-            //         });
-            // } else if (diffDays <= 100) {
-            //         let hundred = document.querySelectorAll("#deadline" + deadlines[i].id);
-            //         hundred.forEach(function (el) {
-            //             el.classList.add('hundreddays');
-            //         });
-            // }
-        // });
+    function setAlertColor() {
+        Object.keys(deadlines).map((i) => {
+        if (deadlineLength(deadlines[i]) <= 5 ) {
+                let daysRemaining = document.querySelectorAll("#deadline" + deadlines[i].id);
+                // @ts-ignore
+                daysRemaining.forEach(function (el: HTMLElement) {
+                    el.style.background = "linear-gradient(90deg, rgba(249,72,76,1) 0%, rgba(249,72,76,1)" + (100 - deadlineLength(deadlines[i])) + '%' + ", rgba(255,255,255,1)" + (100 - deadlineLength(deadlines[i])) + '%' + ")";
+                });
+            }
+        const members = deadlines[i].members;
+        members.forEach(function (el) {
+                if (el.present === false) {
+                    const unavailableMember = document.querySelectorAll("#deadline" + deadlines[i].id);
+                    const unavailableMemberImage = document.querySelectorAll("#presentfalse");
+                    unavailableMemberImage.forEach(function (el) {
+                        el.classList.add('unavailableMember');
+                    })
+                    // @ts-ignore
+                    unavailableMember.forEach(function (el:HTMLElement) {
+                        el.style.background = "linear-gradient(90deg, rgba(255,181,0,1) 0%, rgba(255,181,0,1)" + (100 - deadlineLength(deadlines[i])) + '%' + ", rgba(255,255,255,1)" + (100 - deadlineLength(deadlines[i])) + '%' + ")";
+                    })
+                }
+            })
+        })
     }
 
     function setApiId(id) {
@@ -171,29 +140,55 @@ const Deadlines = (props)  => {
         modal.classList.add('visibleAnim');
         const modalBackground = (document.getElementById('modalEditBackground')!);
         modalBackground.classList.add('visible');
+        setDeadlineIsLoaded(false);
+    }
+
+    function sorted(sortBy) {
+        if (sortBy === 'date') {
+            setFetchUrl(process.env.REACT_APP_API_DEADLINES_ORDEREDBYDATE);
+            setCount(count + 1);
+            const sortByDate = document.getElementById('sortByDate')!;
+            sortByDate.classList.add('activeSort');
+            const sortByName = document.getElementById('sortByName')!;
+            sortByName.classList.remove('activeSort');
+        } else if (sortBy === 'name') {
+            setFetchUrl(process.env.REACT_APP_API_DEADLINES_ORDEREDBYNAME);
+            setCount(count + 1);
+            const sortByName = document.getElementById('sortByName')!;
+            sortByName.classList.add('activeSort');
+            const sortByDate = document.getElementById('sortByDate')!;
+            sortByDate.classList.remove('activeSort');
+        }
     }
 
     return (
         <div className={'deadlines-container'}>
-            {deadlines.map((serverData, index) => (
-                <div id={"deadline" + serverData.id} className={'deadline'} key={index} style={{width: deadlineLength(serverData) + '%'}}>
+            <div className={'deadlines-container__sort'}>
+                <h3 className={'deadlines-container__row--title'} style={{display: props.displayTitle}}>Deadlines</h3>
+                <button id={'sortByDate'} onClick={() => sorted('date')} style={{display: props.displayDateSort}} className={'deadlines-container__sort--button activeSort'}>Datum</button>
+                <button id={'sortByName'} onClick={() => sorted('name')} style={{display: props.displayNameSort}} className={'deadlines-container__sort--button'}>Naam</button>
+            </div>
+            {deadlines.map((deadlineData, index) => (
+                <div id={"deadline" + deadlineData.id} className={'deadline'} key={index} style={{background: "linear-gradient(90deg, rgba(50, 59, 73,1) 0%, rgba(50, 59, 73,1)" + (100 - deadlineLength(deadlineData)) + '%' + ", rgba(255,255,255,1)"+ (100 - deadlineLength(deadlineData)) + '%' +")"}}>
                     <div className={'deadline-leftside'}>
-                        <h3>{serverData.name}</h3>
+                        <div className={'deadline-leftside__title'}>
+                            <h3>{deadlineData.name}</h3>
+                        </div>
                         <div className={'deadline-leftside__member-container'}>
-                            {serverData.members.map((memberData, index) => (
-                                <img src={memberData.image} alt={memberData.name} key={index}/>
+                            {deadlineData.members.map((memberData, index) => (
+                                <img src={memberData.image} alt={memberData.name} key={index} id={"present" + memberData.present}/>
                             ))}
                         </div>
                     </div>
                     <div className={'deadline-rightside'}>
                         <div className={'days-remaining'}>
-                            <p id={'days' + serverData.id}>{(new Date (serverData.deadline)).toLocaleDateString("nl")}</p>
+                            {/*<p id={'days' + serverData.id}>{(new Date (serverData.deadline)).toLocaleDateString("nl")}</p>*/}
+                            <p id={'days' + deadlineData.id}>{deadlineLength(deadlineData)} Dagen</p>
                         </div>
-                        <div className={'deadline-rightside__add-image'} onClick={() => setApiId(serverData.id)}>
+                        <div className={'deadline-rightside__add-image'} onClick={() => setApiId(deadlineData.id)} style={{opacity: props.displayEdit}}>
                             <img id={'edit'} src={(require('../img/edit.svg'))} alt={'edit'}/>
                         </div>
                     </div>
-                    <div></div>
                 </div>
             ))}
             <Dialog_deadlines memberLink={process.env.REACT_APP_API_MEMBERS} reload={reload}/>
@@ -206,9 +201,11 @@ const Deadlines = (props)  => {
                 link={deadline[0].link}
                 isActive={deadline[0].isActive}
                 members={deadline[0].members}
+                reload={reload}
             />
         </div>
     )
 }
 
 export default Deadlines;
+

@@ -16,12 +16,12 @@ export class PageDeadLines extends Component {
             <div className={'content'}>
                 <div className={'content-container'}>
                     <div className={'deadlines-container__row'}>
-                        <h3 className={'deadlines-container__row--title'}>Deadlines</h3>
+                        <h3 className={'deadlines-container__row--title'}></h3>
                         <div className={'deadlines-container__row--add'} onClick={openForm}>
                             <img id={'add'} src={(require('../img/add.svg'))} alt={'add'}/>
                         </div>
                     </div>
-                    <Deadlines apiLink={process.env.REACT_APP_API_DEADLINES}/>
+                    <Deadlines apiLink={process.env.REACT_APP_API_DEADLINES_ORDEREDBYDATE}/>
                 </div>
             </div>
         )
