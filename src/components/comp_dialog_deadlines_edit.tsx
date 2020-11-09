@@ -111,6 +111,7 @@ const Dialog_deadlines_edit = (props)  => {
         })
             .then(function (response) {
                 console.log(response);
+                props.reload();
                 closeForm();
             })
             .catch(function (error) {
