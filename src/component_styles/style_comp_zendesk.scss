@@ -1,0 +1,67 @@
+@import "../App";
+
+.zendesk-container {
+  &__table {
+    border-collapse: separate;
+    border-spacing: 0 1em;
+    &__body {
+      &__head {
+        font-family: CairoSemiBold;
+        text-align: left;
+        th {
+          padding: 0 0 0 0.5rem;
+        }
+      }
+      &__data {
+        background-color: white;
+        box-shadow: $shadow;
+        font-family: Cairo;
+        td:first-child {
+          border-top-left-radius: $radius;
+          border-bottom-left-radius: $radius;
+        }
+        td:last-child {
+          border-top-right-radius: $radius;
+          border-bottom-right-radius: $radius;
+        }
+        td {
+          max-width: 20rem;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          padding: 0.25rem 0.5rem 0.25rem 0.5rem;
+          background-color: white;
+        }
+      }
+    }
+  }
+}
+
+//Zendesk status
+.urgent {
+  background-color: $gillzRed !important;
+  border-radius: 5px;
+  color: white;
+  text-align: center;
+}
+
+.high {
+  background-color: $gillzRedLight !important;
+  border-radius: 5px;
+  color: white;
+  text-align: center;
+}
+
+.normal {
+  background-color: $gillzRedLighter !important;
+  border-radius: 5px;
+  color: white;
+  text-align: center;
+}
+
+.low {
+  background-color: $gillzRedLightest !important;
+  border-radius: 5px;
+  color: white;
+  text-align: center;
+}

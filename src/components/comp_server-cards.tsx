@@ -22,7 +22,7 @@ const Servercards = (props)  => {
 
     useEffect(() => {
         // fetchData();
-        let interval = setInterval(() => fetchData(), (1000 * 2))
+        let interval = setInterval(() => fetchData(), (1000 * 5))
         return () => clearInterval(interval)
     }, [isLoaded]);
 
@@ -42,18 +42,38 @@ const Servercards = (props)  => {
                     }
                 });
 
-                let statusMemory = document.querySelectorAll('#memory')!;
+                let statusMemory = document.querySelectorAll('#memory' + servers[i].id)!;
                 statusMemory.forEach(function (el) {
                     if (el.innerHTML === "Error") {
                         el.classList.add('error');
                     }
                 });
 
-                let statusDisk = document.querySelectorAll('#disk')!;
+                let statusDisk = document.querySelectorAll('#disk' + servers[i].id)!;
                 statusDisk.forEach(function (el) {
                     if (el.innerHTML === "Error") {
                         el.classList.add('error');
                     }
+                });
+            } else {
+                let statusImage = document.querySelectorAll('#statusIcon' + servers[i].id)!;
+                statusImage.forEach(function (el) {
+                    el.setAttribute('src', require("../img/statusok.png"));
+                });
+
+                let statusMessage = document.querySelectorAll('#status' + servers[i].id)!;
+                statusMessage.forEach(function (el) {
+                    el.classList.remove('error');
+                });
+
+                let statusMemory = document.querySelectorAll('#memory' + servers[i].id)!;
+                statusMemory.forEach(function (el) {
+                    el.classList.remove('error');
+                });
+
+                let statusDisk = document.querySelectorAll('#disk' + servers[i].id)!;
+                statusDisk.forEach(function (el) {
+                    el.classList.remove('error');
                 });
             }
         });
@@ -111,8 +131,8 @@ const Servercards = (props)  => {
                                 <div className={'card-layout__text'}>
                                     <h4>{serverData.name}</h4>
                                     <div className={'card-layout__text--bottomstatus'}>
-                                        <p>Disk status: <span id={'disk'}>{serverData.disk}</span></p>
-                                        <p>memory status: <span id={'memory'}>{serverData.memory}</span></p>
+                                        <p>Disk status: <span id={'disk' + serverData.id}>{serverData.disk}</span></p>
+                                        <p>memory status: <span id={'memory' + serverData.id}>{serverData.memory}</span></p>
                                     </div>
                                 </div>
                                 <div className={'currentstatus'}>

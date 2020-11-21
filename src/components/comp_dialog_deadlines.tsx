@@ -26,7 +26,7 @@ const Dialog_deadlines = (props)  => {
 
     useEffect(() => {
         fetchData();
-        console.log('joe');
+        console.log(count);
         // let interval = setInterval(() => fetchData(), (1000))
         // return () => clearInterval(interval)
     }, [count]);

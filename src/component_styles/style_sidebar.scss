@@ -13,7 +13,7 @@
   padding-top: 1rem;
   z-index: 1;
   &:hover {
-    transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease;
     width: 10rem;
     box-shadow: 0px 0px 50px 0px rgba(179,179,179,0.5);
   }
@@ -34,12 +34,19 @@
       cursor: pointer;
       transition: all 0.2s ease;
       &:hover {
-        background-color: $gillzInverted;
+        background-color: $gillzRed;
+        //background-color: $gillzInverted;
         box-shadow: $shadow;
+        //filter: invert(100%);
+      }
+      &:hover label {
+        color: white;
+      }
+      &:hover a button {
         filter: invert(100%);
       }
       &:hover .nav-active {
-        background-color: $gillzInverted;
+        background-color: $gillzRed;
         filter: invert(0%);
       }
       &:hover &--link {

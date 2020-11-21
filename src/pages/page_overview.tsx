@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Servercards from "../components/comp_server-cards";
 import Deadlines from "../components/comp_deadlines";
+import Notes from "../components/comp_notes";
 import '../page_styles/style_overview.scss';
 import '../App.scss';
 
