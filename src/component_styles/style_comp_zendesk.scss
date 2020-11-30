@@ -1,66 +1,117 @@
 @import "../App";
 
 .zendesk-container {
+  margin-left: -0.5rem;
+  overflow: hidden;
   &__table {
-    border-collapse: separate;
-    border-spacing: 0 1em;
+    //border-collapse: separate;
+    border-spacing: 0.5em 1em;
+    width: 97%;
+    border-radius: $radius;
     &__body {
       &__head {
         font-family: CairoSemiBold;
         text-align: left;
-        th {
-          padding: 0 0 0 0.5rem;
-        }
       }
       &__data {
-        background-color: white;
-        box-shadow: $shadow;
         font-family: Cairo;
+        border-radius: $radius;
+        background-color: white;
         td:first-child {
           border-top-left-radius: $radius;
           border-bottom-left-radius: $radius;
+          width: 2rem;
         }
         td:last-child {
           border-top-right-radius: $radius;
           border-bottom-right-radius: $radius;
+          width: 1rem;
         }
         td {
           max-width: 20rem;
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
-          padding: 0.25rem 0.5rem 0.25rem 0.5rem;
-          background-color: white;
+          padding: 0.25rem 1rem 0.25rem 1rem;
+          box-shadow: 0px 0px 15px 0px rgba(179,179,179,0.25);
+          img {
+            width: 1rem;
+            height: 1rem;
+          }
         }
       }
     }
   }
 }
 
+.pagination {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  width: 95%;
+  list-style: none;
+  padding-inline-start: 0;
+  li {
+    //box-shadow: $shadowSmall;
+    border-radius: $radius;
+    transition: all 0.2s ease;
+    padding: 0.25rem;
+    &:hover {
+      //box-shadow: $shadowHoverSmall;
+      //background-color: $gillzRed;
+    }
+    a {
+      padding: 0.25rem;
+      margin: 0.5rem;
+    }
+  }
+  &__link {
+    padding: 0.5rem;
+    margin: 0.5rem;
+    border-radius: $radius;
+    outline: none;
+    cursor: pointer;
+    //background-color: white;
+    color: $gillzBlue;
+    transition: all 0.2s ease;
+    &:hover {
+      color: white;
+      background-color: $gillzRed;
+    }
+    &--disabled {
+      color: lightgrey;
+    }
+    &--active {
+      color: white;
+      background-color: $gillzRed;
+    }
+  }
+}
+
 //Zendesk status
 .urgent {
-  background-color: $gillzRed !important;
+  background-color: $gillzRed;
   border-radius: 5px;
   color: white;
   text-align: center;
 }
 
 .high {
-  background-color: $gillzRedLight !important;
+  background-color: $gillzRedLight;
   border-radius: 5px;
   color: white;
   text-align: center;
 }
 
 .normal {
-  background-color: $gillzRedLighter !important;
+  background-color: $gillzRedLighter;
   border-radius: 5px;
   color: white;
   text-align: center;
 }
 
 .low {
-  background-color: $gillzRedLightest !important;
+  background-color: $gillzRedLightest;
   border-radius: 5px;
   color: white;
   text-align: center;

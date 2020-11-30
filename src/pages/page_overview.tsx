@@ -4,6 +4,8 @@ import Deadlines from "../components/comp_deadlines";
 import Notes from "../components/comp_notes";
 import '../page_styles/style_overview.scss';
 import '../App.scss';
+import Zendesk from "../components/comp_zendesk";
+import Builds from "../components/comp_builds";
 
 export class PageOverview extends Component {
     render() {
@@ -15,7 +17,7 @@ export class PageOverview extends Component {
                         <Servercards apiLink={process.env.REACT_APP_API_SERVER_STATUS}/>
                     <div className={'server-container__bottom-row'}>
 
-                        <div>
+                        <div className={'server-container__bottom'}>
                             <h3 className={'server-container--serverDeadlines'}>Deadlines</h3>
                             {/*<Deadlines apiLink={"http://localhost:3001/deadlines/four"}/>*/}
                             <div className={'server-container__deadlines'}>
@@ -23,9 +25,10 @@ export class PageOverview extends Component {
                             </div>
                         </div>
 
-                        <div>
+                        <div className={'server-container__bottom'}>
                             <h3 className={'server-container--serverDeadlines'}>Builds</h3>
-                            {/*<Deadlines/>*/}
+                            {/*<Zendesk columnWidth={'2rem'} containerHeight={'100%'} tableWidth={'95%'}/>*/}
+                            <Builds columnWidth={'2rem'} containerHeight={'100%'} tableWidth={'95%'} queueDisplay={'none'} tableRow={'none'}/>
                         </div>
 
                     </div>

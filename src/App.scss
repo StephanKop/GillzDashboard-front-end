@@ -7,9 +7,10 @@ $gillzRedLightest: #feb9b0;
 $gillzInverted: #06b7b3;
 $green: #56EB95;
 $gray: #FAFAFA;
-$shadow: 0px 0px 15px 0px rgba(179,179,179,0.5);
-$shadowSmall: 0px 0px 5px 0px rgba(179,179,179,0.5);
-$shadowHover: 0px 0px 15px 0px rgba(179,179,179,1);
+$shadow: 0px 0px 15px 0px rgba(179,179,179,0.25);
+$shadowSmall: 0px 0px 5px 0px rgba(179,179,179,0.25);
+$shadowHoverSmall: 0px 0px 5px 0px rgba(179,179,179,0.75);
+$shadowHover: 0px 0px 15px 0px rgba(179,179,179,0.75);
 $radius: 10px;
 
 //fonts
@@ -67,6 +68,7 @@ h4 {
 
 .content {
   margin-left: 5rem;
+  //overflow-x: hidden;
 }
 
 .error {
@@ -84,3 +86,8 @@ input:focus {
 select:focus {
   outline: none;
 }
+
+//.loading-container img {
+//  width: 3rem !important;
+//  height: 3rem !important;
+//}

@@ -3,29 +3,15 @@ import '../component_styles/style_comp_deadlines.scss';
 import '../App.scss';
 import Dialog_deadlines from "./comp_dialog_deadlines";
 import Dialog_deadlines_edit from "./comp_dialog_deadlines_edit";
+import deadlinesInterface from "../interfaces/deadlines";
 import moment from "moment";
 
 const Deadlines = (props)  => {
-    // interface deadlinesProperties {
-    //     id: Number,
-    //     name: string,
-    //     deadline: Date,
-    //     link: string,
-    //     isActive: Boolean,
-    //     members: [
-    //         {
-    //             id: Number,
-    //             name: string,
-    //             image: string,
-    //             present: boolean
-    //         }
-    //     ]
-    // }
     const [hasError, setErrors] =  useState(false)
     const [isLoaded, setIsLoaded] =  useState(false)
     const [DeadlineIsLoaded, setDeadlineIsLoaded] =  useState(false)
     const [count, setCount] = useState(0);
-    let [deadlines,setDeadlines ] = useState<any[]>([])
+    let [deadlines,setDeadlines ] = useState<deadlinesInterface[]>([])
     let [fetchUrl, setFetchUrl] = useState(props.apiLink)
     const [deadline,setDeadline ] = useState([{
         id: 0,
@@ -75,6 +61,7 @@ const Deadlines = (props)  => {
 
     function reload () {
         setCount(count + 1);
+        setAlertColor();
     }
 
     if (isLoaded) {

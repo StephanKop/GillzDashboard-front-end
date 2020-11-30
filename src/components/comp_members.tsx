@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import '../component_styles/style_comp_members.scss';
 import '../App.scss';
+import membersInterface from "../interfaces/members";
 import DialogMembers from "./comp_dialog_members";
 import Dialog_member_edit from "./comp_dialog_members_edit";
 
@@ -8,8 +9,8 @@ const Members = (props)  => {
     const  [hasError, setErrors] =  useState(false)
     const  [isLoaded, setIsLoaded] =  useState(false)
     const  [memberIsLoaded, setMemberIsLoaded] =  useState(false)
-    const  [members,setMembers ]= useState<any[]>([])
-    const  [member,setMember ] = useState<any[]>([{
+    const  [members,setMembers ]= useState<membersInterface[]>([])
+    const  [member,setMember ] = useState<membersInterface[]>([{
         id: 0,
         name: "",
         image: "",

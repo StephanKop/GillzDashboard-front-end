@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import '../App.scss';
 import '../page_styles/style_members.scss'
 import Members from "../components/comp_members";
@@ -8,6 +8,9 @@ import DialogMembers from "../components/comp_dialog_members";
 import Dialog_member_edit from "../components/comp_dialog_members_edit";
 
 const PageMembers = (props)  => {
+    useEffect(() => {
+        document.title = "Gillz Dashboard | Members"
+    }, []);
 
     function openForm() {
         const modal = (document.getElementById('membersModal')!);

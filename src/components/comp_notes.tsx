@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import '../component_styles/style_comp_notes.scss';
+import notesInterface from "../interfaces/notes";
 import '../App.scss';
 
 const Notes = (props)  => {
     const  [hasError, setErrors] =  useState(false)
     const  [isLoaded, setIsLoaded] =  useState(false)
-    const  [notes,setDeadlines ]= useState<any[]>([])
+    const  [notes,setDeadlines ]= useState<notesInterface[]>([])
 
     async function fetchData() {
         const res = await fetch(props.apiLink);

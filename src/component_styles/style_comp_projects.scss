@@ -1,0 +1,37 @@
+@import "../app.scss";
+
+.projects-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 30%);
+  grid-column-gap: 3rem;
+  grid-row-gap: 2.5vh;
+  .project {
+    box-shadow: $shadow;
+    border-radius: $radius;
+    transition: all 0.2s ease;
+    &:hover {
+      box-shadow: $shadowHover;
+    }
+    &__link {
+      color: $gillzBlue;
+      text-decoration: none;
+        &__content {
+          display: flex;
+          flex-direction: row;
+          overflow: hidden;
+          height: 10rem;
+          &--image img {
+            width: 10rem;
+            object-fit: cover;
+            height: 10rem;
+            border-top-left-radius: 10px;
+            border-bottom-left-radius: 10px;
+          }
+          &--text {
+            padding: 1rem;
+
+          }
+        }
+      }
+    }
+  }

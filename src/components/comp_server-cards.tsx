@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import '../component_styles/style_server-cards.scss';
 import '../App.scss';
+import serverInterface from "../interfaces/server-status";
 import {Link} from "react-router-dom";
 
 const Servercards = (props)  => {
     const  [hasError, setErrors] =  useState(false)
     const  [isLoaded, setIsLoaded] =  useState(false)
-    const  [servers,setServers ]= useState<any[]>([])
+    const  [servers,setServers ]= useState<serverInterface[]>([])
 
     async function fetchData() {
         // const res = await fetch("http://localhost:3001/server-status");
@@ -21,7 +22,7 @@ const Servercards = (props)  => {
     }
 
     useEffect(() => {
-        // fetchData();
+        fetchData();
         let interval = setInterval(() => fetchData(), (1000 * 5))
         return () => clearInterval(interval)
     }, [isLoaded]);
@@ -136,7 +137,6 @@ const Servercards = (props)  => {
                                     </div>
                                 </div>
                                 <div className={'currentstatus'}>
-                                    {/*<img id={serverData.name} src={require('../img/statusok.png')} alt={'server-icon'}/>*/}
                                     <img id={'statusIcon' + serverData.id} src={require('../img/statusok.png')} alt={'server-icon'}/>
                                     <p id={'status' + serverData.id}>{serverData.status}</p>
                                 </div>
