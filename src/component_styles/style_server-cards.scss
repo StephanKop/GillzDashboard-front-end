@@ -9,6 +9,17 @@
   }
 }
 
+@keyframes width {
+  0% {
+    opacity: 0;
+    transform: translateY(-5rem);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .loading-container {
   height: 38.5vh;
   display: flex;
@@ -24,11 +35,13 @@
 .card-container {
   display: grid;
   //grid-template-columns: 30% 30% 30%;
-  grid-template-columns: repeat(auto-fit, 30%);
+  grid-template-columns: repeat(auto-fit, 17%);
   grid-template-rows: 50% 50%;
-  grid-column-gap: 3rem;
+  //grid-column-gap: 3.4vw;
+  justify-content: space-between;
   grid-row-gap: 2rem;
   margin-bottom: 2rem;
+  width: 100%;
   a {
     display: grid;
     text-decoration: none;
@@ -38,9 +51,11 @@
     border-radius: 10px;
     box-shadow: $shadow;
     transition: all 0.2s ease;
-    animation: opacity 1s ease;
+    //animation: opacity 1s ease;
+    //animation: width 0.2s ease;
     &:hover {
-      box-shadow: $shadowHover;
+      //box-shadow: $shadowHover;
+      background-color: transparent;
     }
     .card-layout {
       display: flex;
@@ -60,7 +75,7 @@
         }
         &--bottomstatus {
           display: flex;
-          flex-direction: row;
+          flex-direction: column;
           p {
             //font-size: 0.7em;
             //font-size: 1em;
@@ -102,4 +117,119 @@
       }
     }
   }
+}
+
+.advanced-container {
+  background-color: white;
+  //width: 100%;
+  height: 15.75rem;
+  padding: 1rem;
+  border-radius: $radius;
+  box-shadow: $shadowSmall;
+  animation: width 0.5s ease;
+  &__top {
+    display: flex;
+    justify-content: space-between;
+    h2un start {
+      margin-top: -1rem;
+    }
+    .cancel {
+      width: 1rem;
+      height: 1rem;
+      transform: rotate(90deg);
+      padding: 0.25em;
+      border-radius: 25%;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      &:hover {
+        background: white;
+        box-shadow: 0px 0px 15px 0px rgba(179,179,179,0.5);
+        transform: translateY(-20%) rotate(90deg);
+      }
+    }
+  }
+  &__grid {
+    display: grid;
+    margin-top: 2rem;
+    //width: 95%;
+    grid-template-columns: repeat(auto-fit, 24%);
+    justify-content: space-between;
+    &__column {
+      //background-color: white;
+      background-color: rgba(255,255,255,0.9);
+      //border-right: 2px solid #eaeaea;
+      height: 100%;
+      border-radius: $radius;
+      //background-color: white;
+      //margin: auto;
+      padding-left: 1rem;
+      box-shadow: $shadow;
+      &:last-child {
+        border-right: 0;
+      }
+      .logging__table {
+        border-spacing: 0.25em 0.25em;
+        //padding: 0.5rem;
+        border-radius: $radius;
+        &__body {
+          &__data {
+            transition: all 0.2s ease;
+            cursor: pointer;
+            &:hover {
+              color: white;
+              background-color: $gillzBlue;
+            }
+            td:first-child {
+              border-top-left-radius: $radius;
+              border-bottom-left-radius: $radius;
+            }
+            td:last-child {
+              border-top-right-radius: $radius;
+              border-bottom-right-radius: $radius;
+            }
+            td {
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              padding: 0.25rem 1rem 0.25rem 1rem;
+              box-shadow: $shadowSmall;
+            }
+          }
+        }
+      }
+      .plot{
+        width: 100%;
+        height: 7.5rem;
+        display: flex;
+        margin: auto;
+        img {
+          margin: auto;
+          width: 5rem;
+          height: 5rem;
+        }
+      }
+    }
+  }
+}
+
+@keyframes AlertRed {
+  0%{background-color: $gillzRedLightest}
+  50%{background-color: $gillzRed}
+  100%{background-color: $gillzRedLightest}
+}
+
+.alertRed {
+  //background: linear-gradient(0deg, #f9484c, #ffffff);
+  //background-size: 100% 100%;
+  animation: AlertRed 4s ease infinite;
+}
+
+@keyframes AlertYellow {
+  0%{background-color: #fdd089}
+  50%{background-color: #FEBB4E}
+  100%{background-color: #fdd089}
+}
+
+.alertYellow {
+  animation: AlertYellow 4s ease infinite;
 }

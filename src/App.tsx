@@ -1,14 +1,13 @@
 import React from 'react';
 import './App.scss';
 import {Sidebar} from './components/comp_sidebar';
-import {Header} from './components/comp_header';
-import { Provider } from 'react-redux'
+import Header from './components/comp_header';
 
 function App() {
   return (
         <div className="main">
             <div>
-                <Header/>
+                {/*<Header/>*/}
                 <Sidebar/>
             </div>
         </div>

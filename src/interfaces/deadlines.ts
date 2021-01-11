@@ -1,15 +1,16 @@
-export default interface deadlinesInterface {
-    id: Number,
-    name: string,
-    deadline: Date,
-    link: string,
-    isActive: Boolean,
+export default interface DeadlinesInterface {
+    id: number;
+    project: string;
+    name: string;
+    deadline: Date;
+    link: string;
+    isActive: boolean;
     members: [
         {
-            id: Number,
+            id: number,
             name: string,
             image: string,
             present: boolean
         }
-    ]
+    ];
 }

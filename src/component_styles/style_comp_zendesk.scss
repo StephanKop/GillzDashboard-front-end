@@ -6,7 +6,8 @@
   &__table {
     //border-collapse: separate;
     border-spacing: 0.5em 1em;
-    width: 97%;
+    //width: 97%;
+    width: 100%;
     border-radius: $radius;
     &__body {
       &__head {
@@ -17,6 +18,11 @@
         font-family: Cairo;
         border-radius: $radius;
         background-color: white;
+        transition: all 0.2s ease;
+        cursor: pointer;
+        &:hover {
+          background-color: transparent;
+        }
         td:first-child {
           border-top-left-radius: $radius;
           border-bottom-left-radius: $radius;
@@ -56,9 +62,15 @@
     border-radius: $radius;
     transition: all 0.2s ease;
     padding: 0.25rem;
+    cursor: pointer;
+    margin: 0.25rem;
+    &:focus {
+      outline: none;
+    }
     &:hover {
       //box-shadow: $shadowHoverSmall;
-      //background-color: $gillzRed;
+      color: white;
+      background-color: $gillzRed;
     }
     a {
       padding: 0.25rem;

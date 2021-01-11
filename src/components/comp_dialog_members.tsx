@@ -4,14 +4,14 @@ import '../App.scss';
 import axios from 'axios';
 
 const DialogMembers = (props)  => {
-    const [hasError, setErrors] =  useState(false)
-    const [isLoaded, setIsLoaded] =  useState(false)
+    const [hasError, setErrors] =  useState(false);
+    const [isLoaded, setIsLoaded] =  useState(false);
 
     async function fetchData() {
         const res = await fetch(props.apiLink);
         res
             .json()
-            .then((res) => {
+            .then(() => {
                 setIsLoaded(true);
             })
             .catch(err => setErrors(err));
@@ -28,11 +28,11 @@ const DialogMembers = (props)  => {
     }
 
     if (!isLoaded) {
-        return <div className={'loading-container'}><img className={'loading'} src={require('../img/loading.gif')} alt={'loading'}/></div>
+        return <div className={'loading-container'}><img className={'loading'} src={require('../img/loading.gif')} alt={'loading'}/></div>;
     }
 
     if (hasError) {
-        return <h2>Error</h2>
+        return <h2>Error</h2>;
     }
 
     function closeForm() {
@@ -44,18 +44,20 @@ const DialogMembers = (props)  => {
 
     function sendForm(this: any) {
         const formData = document.querySelector('form')!;
-        const name = formData.elements['name'].value;
-        const profileURL = formData.elements['image'].value;
-        const present = formData.elements['present'].value;
-        let boolValue = getBoolean(present);
+        const name = formData.elements['name'.toString()].value;
+        const profileURL = formData.elements['image'.toString()].value;
+        const present = formData.elements['present'.toString()].value;
+        const func = formData.elements['function'.toString()].value;
+        const description = formData.elements['description'.toString()].value;
+        const boolValue = getBoolean(present);
         function getBoolean(value){
             switch(value){
                 case true:
-                case "true":
+                case 'true':
                 case 1:
-                case "1":
-                case "on":
-                case "yes":
+                case '1':
+                case 'on':
+                case 'yes':
                     return true;
                 default:
                     return false;
@@ -66,12 +68,15 @@ const DialogMembers = (props)  => {
             name: name,
             image: profileURL,
             present: boolValue,
+            jobTitle: func,
+            description: description
         })
-            .then(function (response) {
+            .then((response) => {
                 console.log(response);
                 closeForm();
+                props.reload();
             })
-            .catch(function (error) {
+            .catch((error) => {
                 console.log(error);
             });
 
@@ -85,22 +90,26 @@ const DialogMembers = (props)  => {
                     <img id={'cancel'} className={'modal__top--img'} src={(require('../img/add.svg'))} alt={'add'}
                          onClick={closeForm}/>
                 </div>
-                <form method="post" encType='application/json' id={'deadlineForm'} className={'deadlineForm'}>
+                <form method="post" encType="application/json" id={'deadlineForm'} className={'deadlineForm'}>
                     <label className={'deadlineForm__label'}>Naam</label>
                     <input className={'deadlineForm__name'} type={'text'} name={'name'} placeholder={'Naam...'}/>
+                    <label className={'deadlineForm__label'}>Functie</label>
+                    <input className={'deadlineForm__name'} type={'text'} name={'function'} placeholder={'Functie...'}/>
+                    <label className={'deadlineForm__label'}>Beschrijving</label>
+                    <textarea className={'deadlineForm__name'} name={'description'} placeholder={'Beschrijving...'}/>
                     <label className={'deadlineForm__label'}>Profielfoto URL</label>
                     <input className={'deadlineForm__date'} type={'text'} name={'image'} placeholder={'URL...'}/>
                     <label className={'deadlineForm__label'}>Aanwezig</label>
                     <select name={'present'} className={'deadlineForm__select'}>
-                        <option value={'false'}>Nee</option>
                         <option value={'true'}>Ja</option>
+                        <option value={'false'}>Nee</option>
                     </select>
                     <input type={'button'} onClick={sendForm} value={'Verzenden'} className={'submitButton'}/>
                 </form>
             </div>
-            <div className={'modal-background'} id={"modalBackground"}></div>
+            <div className={'modal-background'} id={'modalBackground'}></div>
         </>
-    )
-}
+    );
+};
 
 export default DialogMembers;

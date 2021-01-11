@@ -2,16 +2,18 @@ import React, {useEffect, useState} from 'react';
 import '../component_styles/style_dialog_deadlines.scss';
 import '../App.scss';
 import axios from 'axios';
+import { useSnackbar } from 'notistack';
 
 const DialogNotes = (props)  => {
-    const [hasError, setErrors] =  useState(false)
-    const [isLoaded, setIsLoaded] =  useState(false)
+    const [hasError, setErrors] =  useState(false);
+    const [isLoaded, setIsLoaded] =  useState(false);
+    const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
     async function fetchData() {
         const res = await fetch(props.apiLink);
         res
             .json()
-            .then((res) => {
+            .then(() => {
                 setIsLoaded(true);
             })
             .catch(err => setErrors(err));
@@ -28,11 +30,11 @@ const DialogNotes = (props)  => {
     }
 
     if (!isLoaded) {
-        return <div className={'loading-container'}><img className={'loading'} src={require('../img/loading.gif')} alt={'loading'}/></div>
+        return <div className={'loading-container'}><img className={'loading'} src={require('../img/loading.gif')} alt={'loading'}/></div>;
     }
 
     if (hasError) {
-        return <h2>Error</h2>
+        return <h2>Error</h2>;
     }
 
     function closeForm() {
@@ -44,21 +46,23 @@ const DialogNotes = (props)  => {
 
     function sendForm(this: any) {
         const formData = document.querySelector('form')!;
-        const title = formData.elements['title'].value;
-        const description = formData.elements['description'].value;
-        const date = formData.elements['date'].value;
+        const title = formData.elements['title'.toString()].value;
+        const description = formData.elements['description'.toString()].value;
+        const date = formData.elements['date'.toString()].value;
 
-        axios.post('http://localhost:3001/notes', {
+        axios.post(process.env.REACT_APP_API_NOTES!!, {
             title: title,
             description: description,
-            date: date,
+            date: date
         })
-            .then(function (response) {
+            .then((response) => {
                 console.log(response);
                 closeForm();
+                enqueueSnackbar('Notitie aangemaakt', {variant: 'success', anchorOrigin: {vertical: 'bottom', horizontal: 'center'}});
             })
-            .catch(function (error) {
+            .catch((error) => {
                 console.log(error);
+                enqueueSnackbar('Dat ging niet helemaal goed', {variant: 'error', anchorOrigin: {vertical: 'bottom', horizontal: 'center'}});
             });
 
     }
@@ -71,7 +75,7 @@ const DialogNotes = (props)  => {
                     <img id={'cancel'} className={'modal__top--img'} src={(require('../img/add.svg'))} alt={'add'}
                          onClick={closeForm}/>
                 </div>
-                <form method="post" encType='application/json' action="http://192.168.2.14:3001/deadlines"
+                <form method="post" encType="application/json" action="http://192.168.2.14:3001/deadlines"
                       id={'deadlineForm'} className={'deadlineForm'}>
                     <label className={'deadlineForm__label'}>Titel</label>
                     <input className={'deadlineForm__name'} type={'text'} name={'title'} placeholder={'Titel...'}/>
@@ -83,10 +87,9 @@ const DialogNotes = (props)  => {
                     <input type={'button'} onClick={sendForm} value={'Verzenden'} className={'submitButton'}/>
                 </form>
             </div>
-            <div className={'modal-background'} id={"modalBackground"}></div>
+            <div className={'modal-background'} id={'modalBackground'}></div>
         </>
-
-    )
-}
+    );
+};
 
 export default DialogNotes;

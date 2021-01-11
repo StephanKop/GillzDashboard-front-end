@@ -1,25 +1,21 @@
-import React, { Component } from 'react';
+import React from 'react';
 import '../component_styles/style_header.scss';
 import '../App.scss';
 import {
-    BrowserRouter as Router, Route,
+    BrowserRouter as Router,
+    Route,
     Switch,
-} from "react-router-dom";
+    useLocation
+} from 'react-router-dom';
 
-export class Header extends Component {
-    render() {
+const Header = (props) => {
+    // const location = useLocation();
+    // console.log(location.pathname);
         return (
             <Router>
             <div className={'header'}>
                 <div className={'header__item'}>
-                    <Switch>
-                        <Route path="/about">
-                            <h2>about</h2>
-                        </Route>
-                        <Route path="/">
-                            <h2>Dashboard</h2>
-                        </Route>
-                    </Switch>
+                    <h2>{props.title}</h2>
                 </div>
                 <div className={'header__item--gillz'}>
                     <a href={'https://www.gillz.nl'}>
@@ -29,6 +25,7 @@ export class Header extends Component {
                 </div>
             </div>
         </Router>
-        )
-    }
-}
+        );
+    };
+
+export default Header;

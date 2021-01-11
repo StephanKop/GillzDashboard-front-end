@@ -1,12 +1,13 @@
 //variables
 $gillzBlue: #323B49;
+$gillzBlueEdit: #b7c3cf;
 $gillzRed: #F9484C;
 $gillzRedLight: #fb6e6d;
 $gillzRedLighter: #fd948f;
 $gillzRedLightest: #feb9b0;
 $gillzInverted: #06b7b3;
 $green: #56EB95;
-$gray: #FAFAFA;
+$gray: #fafafa;
 $shadow: 0px 0px 15px 0px rgba(179,179,179,0.25);
 $shadowSmall: 0px 0px 5px 0px rgba(179,179,179,0.25);
 $shadowHoverSmall: 0px 0px 5px 0px rgba(179,179,179,0.75);
@@ -40,7 +41,6 @@ $radius: 10px;
   min-height: 100vh;
   height: 100%;
   background-color: #FAFAFA;
-  //background-color: #121212;
 }
 h1, h2, h3, h4, h5, h6, p {
   margin: 0;
@@ -68,11 +68,13 @@ h4 {
 
 .content {
   margin-left: 5rem;
+  margin-right: 3rem;
   //overflow-x: hidden;
 }
 
 .error {
-  color: $gillzRed !important;
+  //color: red !important;
+  color: white !important;
 }
 
 .ok {
@@ -87,7 +89,18 @@ select:focus {
   outline: none;
 }
 
-//.loading-container img {
-//  width: 3rem !important;
-//  height: 3rem !important;
-//}
+.activeSort {
+  animation: fade 1s ease;
+  border: 2px solid $gillzRed;
+  color: white;
+  background-color: $gillzRed;
+}
+
+@keyframes fade {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}

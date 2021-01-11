@@ -1,19 +1,19 @@
  .server-container {
     display: flex;
     flex-direction: column;
-   justify-content: space-between;
+    justify-content: space-between;
     margin-top: 1rem;
+    min-height: 90vh;
    &--serverDeadlines {
      //margin-top: 3rem;
      margin-top: 3vh;
    }
    &__bottom {
      //height: 17rem;
-     overflow: hidden;
-     height: 45.5vh;
+     //overflow: hidden;
+     //height: 45.5vh;
    }
    &__deadlines {
-     max-height: 37vh;
      //overflow: scroll;
      padding: 1rem;
      margin-left: -1rem;
@@ -22,6 +22,12 @@
    }
    &__bottom-row {
      display: grid;
+     min-height: 55vh;
      grid-template-columns: 50% auto;
+     //grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+     flex-wrap: wrap;
+     overflow: hidden;
+     //min-height: 37vh;
+     //margin-top: 10%;
    }
   }

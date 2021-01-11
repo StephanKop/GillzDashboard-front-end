@@ -1,4 +1,4 @@
-import React, { useState, createContext } from "react";
+import React, { useState, createContext } from 'react';
 
 const deadlinesState = [];
 
@@ -15,8 +15,8 @@ export const DeadlinesContextProvider = props => {
         const res = await fetch(fetchUrl as Request | string);
         res
             .json()
-            .then((res) => {
-                setDeadlines(res);
+            .then((result) => {
+                setDeadlines(result);
             })
             .catch(err => setErrors(err));
         return true;

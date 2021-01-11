@@ -1,32 +1,35 @@
 import React, { useState, useEffect } from 'react';
 import '../component_styles/style_comp_members.scss';
 import '../App.scss';
-import membersInterface from "../interfaces/members";
-import DialogMembers from "./comp_dialog_members";
-import Dialog_member_edit from "./comp_dialog_members_edit";
+import MembersInterface from '../interfaces/members';
+import DialogMembers from './comp_dialog_members';
+import Dialog_member_edit from './comp_dialog_members_edit';
 
 const Members = (props)  => {
-    const  [hasError, setErrors] =  useState(false)
-    const  [isLoaded, setIsLoaded] =  useState(false)
-    const  [memberIsLoaded, setMemberIsLoaded] =  useState(false)
-    const  [members,setMembers ]= useState<membersInterface[]>([])
-    const  [member,setMember ] = useState<membersInterface[]>([{
+    const  [hasError, setErrors] =  useState(false);
+    const  [isLoaded, setIsLoaded] =  useState(false);
+    const  [memberIsLoaded, setMemberIsLoaded] =  useState(false);
+    const  [members,setMembers ]= useState<MembersInterface[]>([]);
+    const [count, setCount] = useState(0);
+    const  [member,setMember ] = useState<MembersInterface[]>([{
         id: 0,
-        name: "",
-        image: "",
+        name: '',
+        image: '',
         present: true,
-    }])
-    let [editLink] = useState<any[]>([{
-        link: "http://localhost:3001/members/3"
+        description: '',
+        jobTitle: ''
+    }]);
+    const [editLink] = useState<any[]>([{
+        link: 'http://localhost:3001/members/3'
     }]);
 
     async function fetchData() {
         const res = await fetch(props.apiLink);
         res
             .json()
-            .then((res) => {
+            .then((result) => {
                 setIsLoaded(true);
-                setMembers(res);
+                setMembers(result);
             })
             .catch(err => setErrors(err));
     }
@@ -35,9 +38,10 @@ const Members = (props)  => {
         const res = await fetch(editLink[0].link);
         res
             .json()
-            .then((res) => {
-                setMember(res);
-                setTimeout(function() {
+            .then((result) => {
+                setMember(result);
+                openEditForm();
+                setTimeout(() => {
                     setMemberIsLoaded(true);
                 }, 100);
             })
@@ -47,26 +51,30 @@ const Members = (props)  => {
 
     useEffect(() => {
         fetchData();
-    }, [isLoaded]);
+    }, [isLoaded, count]);
+
+    const reload = () => {
+        setCount(count +1 );
+    };
 
     if (isLoaded) {
         present();
     }
 
-    if(memberIsLoaded) {
-        openEditForm();
-    }
+    // if(memberIsLoaded) {
+    //     openEditForm();
+    // }
 
     if (!isLoaded) {
-        return <h2>Loading...</h2>
+        return <h2>Loading...</h2>;
     }
 
     if (hasError) {
-        return <h2>Error</h2>
+        return <h2>Error</h2>;
     }
 
     function present () {
-        let absent = document.querySelectorAll('#presentfalse');
+        const absent = document.querySelectorAll('#presentfalse');
         absent.forEach((div) => {
             div.classList.add('red');
         });
@@ -81,7 +89,7 @@ const Members = (props)  => {
 
     function setApiId(id) {
         const memberId = id;
-        editLink[0].link = process.env.REACT_APP_API_MEMBERS+ "/" + memberId;
+        editLink[0].link = process.env.REACT_APP_API_MEMBERS+ '/' + memberId;
         fetchMember();
     }
 
@@ -92,6 +100,8 @@ const Members = (props)  => {
                     <div className={'member'} id={'present' + memberData.present.toString()}>
                         <img className={'member__image'} src={memberData.image}/>
                         <h3 className={'member__name'}>{memberData.name}</h3>
+                        <p className={'member__jobTitle'}>{memberData.jobTitle}</p>
+                        <p className={'member__description'}>{memberData.description}</p>
                         <div className={'member__bottom-section'}>
                             <p className={'member__bottom-section__present'}>Aanwezig: {memberData.present.toString()}</p>
                             <img id={'edit'} src={(require('../img/edit.svg'))} alt={'edit'} onClick={() => setApiId(memberData.id)}/>
@@ -99,15 +109,18 @@ const Members = (props)  => {
                     </div>
                 </div>
             ))}
-            <DialogMembers apiLink={process.env.REACT_APP_API_MEMBERS}/>
+            <DialogMembers apiLink={process.env.REACT_APP_API_MEMBERS} reload={reload}/>
             <Dialog_member_edit
                 memberLink={editLink[0].link}
                 id={member[0].id}
                 name={member[0].name}
                 image={member[0].image}
+                function={member[0].jobTitle}
+                description={member[0].description}
+                reload={reload}
             />
         </div>
-    )
-}
+    );
+};
 
 export default Members;

@@ -10,6 +10,7 @@
   width: 30vw;
   transition: all 1s ease;
   position: absolute;
+  top: 5vh;
   left: 0;
   right: 0;
   margin: auto;
@@ -86,14 +87,15 @@
       appearance: none;
       background-color: white;
       border-radius: 10px;
-      width: 25%;
+      width: 70%;
       padding: 0.25em 0.5em 0.25em 0.5em;
       font-family: CairoLight;
       font-size: 1em;
       background-image: url('../img/arrow-down.svg');
       background-repeat: no-repeat;
-      background-position: 90%;
+      background-position: 95%;
       background-size: 0.75em;
+      margin-bottom: 1rem;
     }
     .members {
       display: flex;
@@ -182,6 +184,7 @@
   justify-content: center;
   animation: fade 0.2s ease forwards;
   z-index: 2;
+  position: fixed;
 }
 
 .visible {
@@ -193,7 +196,7 @@
   width: 100%;
   height: 100%;
   background-color: rgba(53, 53, 53, 0.5);
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   pointer-events: none;

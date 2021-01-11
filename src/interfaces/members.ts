@@ -1,6 +1,8 @@
-export default interface membersInterface {
-    "id": number,
-    "name": string,
-    "image": string,
-    "present": boolean
+export default interface MembersInterface {
+    'id': number;
+    'name': string;
+    'image': string;
+    'present': boolean;
+    'description': string;
+    'jobTitle': string;
 }

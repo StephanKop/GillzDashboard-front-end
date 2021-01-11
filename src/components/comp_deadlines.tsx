@@ -1,28 +1,48 @@
-import React, {useState, useEffect, useImperativeHandle, useContext} from 'react';
+import React, {useState, useEffect} from 'react';
 import '../component_styles/style_comp_deadlines.scss';
 import '../App.scss';
-import Dialog_deadlines from "./comp_dialog_deadlines";
-import Dialog_deadlines_edit from "./comp_dialog_deadlines_edit";
-import deadlinesInterface from "../interfaces/deadlines";
-import moment from "moment";
+import DialogDeadlines from './comp_dialog_deadlines';
+import DialogDeadlinesEdit from './comp_dialog_deadlines_edit';
+import DeadlinesInterface from '../interfaces/deadlines';
+import DeadlineInterface from '../interfaces/deadline';
+import ProjectsInterface from '../interfaces/projects';
 
 const Deadlines = (props)  => {
-    const [hasError, setErrors] =  useState(false)
-    const [isLoaded, setIsLoaded] =  useState(false)
-    const [DeadlineIsLoaded, setDeadlineIsLoaded] =  useState(false)
+    const [hasError, setErrors] =  useState(false);
+    const [isLoaded, setIsLoaded] =  useState(false);
+    const [DeadlineIsLoaded, setDeadlineIsLoaded] =  useState(false);
     const [count, setCount] = useState(0);
-    let [deadlines,setDeadlines ] = useState<deadlinesInterface[]>([])
-    let [fetchUrl, setFetchUrl] = useState(props.apiLink)
-    const [deadline,setDeadline ] = useState([{
+    const [deadlines,setDeadlines ] = useState<DeadlinesInterface[]>([]);
+    const [slicedDeadlines,setSlicedDeadlines ] = useState<DeadlinesInterface[]>([]);
+    const [fetchUrl, setFetchUrl] = useState(props.apiLink);
+    const [deadline,setDeadline ] = useState<DeadlineInterface[]>([{
         id: 0,
-        name: "",
-        deadline: Date,
-        link: "",
-        isActive: Boolean,
-        members: []
-    }])
-    let [editLink] = useState([{
-        link: ""
+        project: '',
+        name: '',
+        deadline: '2020-01-02T00:00:00.000Z',
+        link: '',
+        isActive: false,
+        members: [{
+            id: 4,
+            name: '',
+            image: '',
+            present: true
+        },{
+            id: 0,
+            name: '',
+            image: '',
+            present: true
+        },{
+            id: 0,
+            name: '',
+            image: '',
+            present: true
+        }
+        ]
+    }]);
+    // const [deadline, setDeadline] = useState<DeadlineInterface[]>([]);
+    const [editLink] = useState([{
+        link: ''
     }]);
 
 
@@ -30,9 +50,9 @@ const Deadlines = (props)  => {
         const res = await fetch(fetchUrl);
         res
             .json()
-            .then((res) => {
+            .then((result) => {
+                setDeadlines(result);
                 setIsLoaded(true);
-                setDeadlines(res);
             })
             .catch(err => setErrors(err));
         return true;
@@ -42,9 +62,9 @@ const Deadlines = (props)  => {
         const res = await fetch(editLink[0].link);
         res
             .json()
-            .then((res) => {
-                setDeadline(res);
-                setTimeout(function() {
+            .then((result) => {
+                setDeadline(result);
+                setTimeout(() => {
                     setDeadlineIsLoaded(true);
                 }, 100);
             })
@@ -54,18 +74,19 @@ const Deadlines = (props)  => {
 
     useEffect(() => {
         fetchData();
-        setAlertColor();
+        heightSlice(props.frontPage);
+        // setAlertColor();
         // let interval = setInterval(() => fetchData(), (1000 * 60 * 60))
         // return () => clearInterval(interval)
     }, [isLoaded, count, fetchUrl]);
 
     function reload () {
         setCount(count + 1);
-        setAlertColor();
+        // setAlertColor();
     }
 
     if (isLoaded) {
-        setAlertColor();
+        // setAlertColor();
         // setTimeout(addGradientLength, 3000)
     }
 
@@ -78,48 +99,57 @@ const Deadlines = (props)  => {
     }
 
     if (hasError) {
-        return <h2>Error</h2>
+        return <h2>Error</h2>;
     }
 
-    function deadlineLength(deadline: any): number {
+    function deadlineLength(deadlineToCalc: any): number {
         const currentDate = new Date();
-        const oneDay = 24 * 60 * 60;
         const milPerDay = 1000 * 60 * 60 * 24;
-        const deadlineDate = new Date(deadline.deadline);
-        let diffDays = Math.abs(currentDate.getTime() - deadlineDate.getTime());
-        let newDays = Math.ceil(diffDays / milPerDay);
+        const deadlineDate = new Date(deadlineToCalc.deadline);
+        const diffDays = Math.abs(currentDate.getTime() - deadlineDate.getTime());
+        const newDays = Math.ceil(diffDays / milPerDay);
         return newDays;
     }
 
-    function setAlertColor() {
-        Object.keys(deadlines).map((i) => {
-        if (deadlineLength(deadlines[i]) <= 5 ) {
-                let daysRemaining = document.querySelectorAll("#deadline" + deadlines[i].id);
-                // @ts-ignore
-                daysRemaining.forEach(function (el: HTMLElement) {
-                    el.style.background = "linear-gradient(90deg, rgba(249,72,76,1) 0%, rgba(249,72,76,1)" + (100 - deadlineLength(deadlines[i])) + '%' + ", rgba(255,255,255,1)" + (100 - deadlineLength(deadlines[i])) + '%' + ")";
-                });
-            }
-        const members = deadlines[i].members;
-        members.forEach(function (el) {
-                if (el.present === false) {
-                    const unavailableMember = document.querySelectorAll("#deadline" + deadlines[i].id);
-                    const unavailableMemberImage = document.querySelectorAll("#presentfalse");
-                    unavailableMemberImage.forEach(function (el) {
-                        el.classList.add('unavailableMember');
-                    })
-                    // @ts-ignore
-                    unavailableMember.forEach(function (el:HTMLElement) {
-                        el.style.background = "linear-gradient(90deg, rgba(255,181,0,1) 0%, rgba(255,181,0,1)" + (100 - deadlineLength(deadlines[i])) + '%' + ", rgba(255,255,255,1)" + (100 - deadlineLength(deadlines[i])) + '%' + ")";
-                    })
-                }
-            })
-        })
-    }
+    // function setAlertColor() {
+    //     Object.keys(deadlines).map((i) => {
+        // if (deadlineLength(deadlines[i]) <= 5 ) {
+        //         const daysRemaining = document.querySelectorAll('#deadline' + deadlines[i].id);
+        //         // @ts-ignore
+        //         daysRemaining.forEach((el: HTMLElement) => {
+        //             el.style.background = 'linear-gradient(90deg, rgba(249,72,76,1) 0%, rgba(249,72,76,1)' + (100 - deadlineLength(deadlines[i])) + '%' + ', rgba(255,255,255,1)' + (100 - deadlineLength(deadlines[i])) + '%' + ')';
+        //         });
+        //     }
+    //     const members = deadlines[i].members;
+    //     members.forEach((el) => {
+    //             if (el.present === false) {
+    //                 const unavailableMember = document.querySelectorAll('#deadline' + deadlines[i].id);
+    //                 const unavailableMemberImage = document.querySelectorAll('#presentfalse');
+    //                 unavailableMemberImage.forEach((el1) => {
+    //                     el1.classList.add('unavailableMember');
+    //                 });
+    //                 // @ts-ignore
+    //                 unavailableMember.forEach((el2:HTMLElement) => {
+    //                     el2.style.background = 'linear-gradient(90deg, rgba(255,181,0,1) 0%, rgba(255,181,0,1)' + (100 - deadlineLength(deadlines[i])) + '%' + ', rgba(255,255,255,1)' + (100 - deadlineLength(deadlines[i])) + '%' + ')';
+    //                 });
+    //             }
+    //         });
+    //     });
+    // }
+    const setAwarenessColor = (daysRemain, present) => {
+        if (daysRemain <= 5) {
+            return 'linear-gradient(90deg, rgba(249,72,76,1) 0%, rgba(249,72,76,1)' + (100 - daysRemain) + '%' + ', rgba(255,255,255,0)' + (100 - daysRemain + '%' + ')');
+        } else if (present.find((element) => element === false) === false) {
+            return 'linear-gradient(90deg, rgba(255,181,0,1) 0%, rgba(255,181,0,1)' + (100 - daysRemain) + '%' + ', rgba(255,255,255,0)' + (100 - daysRemain) + '%' + ')';
+        } else {
+            return 'linear-gradient(90deg, rgba(50, 59, 73,0.7) 0%, rgba(50, 59, 73,0.7)' + (100 - daysRemain) + '%' + ', rgba(255,255,255,0)' + (100 - daysRemain + '%' + ')');
+            // return 'linear-gradient(90deg, rgba(255, 255, 255,1) 0%, rgba(255, 255, 255,1)' + (100 - daysRemain) + '%' + ', rgba(255,255,255,0)' + (100 - daysRemain + '%' + ')');
+        }
+    };
 
     function setApiId(id) {
         const serverId = id;
-        editLink[0].link = process.env.REACT_APP_API_DEADLINES + "/" + serverId;
+        editLink[0].link = process.env.REACT_APP_API_DEADLINES + '/' + serverId;
         fetchDeadline();
     }
 
@@ -134,14 +164,14 @@ const Deadlines = (props)  => {
     function sorted(sortBy) {
         if (sortBy === 'date') {
             setFetchUrl(process.env.REACT_APP_API_DEADLINES_ORDEREDBYDATE);
-            setCount(count + 1);
+            reload();
             const sortByDate = document.getElementById('sortByDate')!;
             sortByDate.classList.add('activeSort');
             const sortByName = document.getElementById('sortByName')!;
             sortByName.classList.remove('activeSort');
         } else if (sortBy === 'name') {
             setFetchUrl(process.env.REACT_APP_API_DEADLINES_ORDEREDBYNAME);
-            setCount(count + 1);
+            reload();
             const sortByName = document.getElementById('sortByName')!;
             sortByName.classList.add('activeSort');
             const sortByDate = document.getElementById('sortByDate')!;
@@ -149,28 +179,49 @@ const Deadlines = (props)  => {
         }
     }
 
+    const heightSlice = (value) => {
+        if (value) {
+            const container = document.getElementById('deadlines-container');
+            const offsetHeight = container!.offsetHeight;
+            const dividedHeight = offsetHeight / 60;
+            const slicedArray = deadlines.slice(0, Math.round(dividedHeight));
+            // const sortedArray = slicedArray.sort((a,b)=>new Date(a.deadline).getTime() - new Date(b.deadline).getTime());
+            setSlicedDeadlines(slicedArray);
+        } else {
+            setSlicedDeadlines(deadlines);
+        }
+    };
+
     return (
-        <div className={'deadlines-container'}>
+        <div className={'deadlines-container'} id={'deadlines-container'}>
             <div className={'deadlines-container__sort'}>
-                <h3 className={'deadlines-container__row--title'} style={{display: props.displayTitle}}>Deadlines</h3>
+                <h3 className={'deadlines-container__row--title'} style={{display: props.displayTitle}}>Sorteer op</h3>
                 <button id={'sortByDate'} onClick={() => sorted('date')} style={{display: props.displayDateSort}} className={'deadlines-container__sort--button activeSort'}>Datum</button>
                 <button id={'sortByName'} onClick={() => sorted('name')} style={{display: props.displayNameSort}} className={'deadlines-container__sort--button'}>Naam</button>
             </div>
-            {deadlines.map((deadlineData, index) => (
-                <div id={"deadline" + deadlineData.id} className={'deadline'} key={index} style={{background: "linear-gradient(90deg, rgba(50, 59, 73,1) 0%, rgba(50, 59, 73,1)" + (100 - deadlineLength(deadlineData)) + '%' + ", rgba(255,255,255,1)"+ (100 - deadlineLength(deadlineData)) + '%' +")"}}>
+            {deadlines.slice(0, props.maxDeadlines).map((deadlineData, index) => (
+                <div key={index}>
+                <div id={'deadline' + deadlineData.id} className={'deadline'} key={index} style={{background: setAwarenessColor(deadlineLength(deadlineData), deadlineData.members.map((memberPresent) => (memberPresent.present)))}}>
                     <div className={'deadline-leftside'}>
+                        <div className={'deadline-leftside__project'}>
+                            <h3>{deadlineData.project}</h3>
+                        </div>
+                        {/*<div className={'deadline-leftside__member-container'}>*/}
+                        {/*    {deadlineData.members.map((memberData, memberIndex) => (*/}
+                        {/*        <img src={memberData.image} alt={memberData.name} key={memberIndex} id={'present' + memberData.present}/>*/}
+                        {/*    ))}*/}
+                        {/*</div>*/}
                         <div className={'deadline-leftside__title'}>
-                            <h3>{deadlineData.name}</h3>
+                            <p>{deadlineData.name}</p>
                         </div>
                         <div className={'deadline-leftside__member-container'}>
-                            {deadlineData.members.map((memberData, index) => (
-                                <img src={memberData.image} alt={memberData.name} key={index} id={"present" + memberData.present}/>
+                            {deadlineData.members.map((memberData, memberIndex) => (
+                                <img src={memberData.image} alt={memberData.name} key={memberIndex} id={'present' + memberData.present}/>
                             ))}
                         </div>
                     </div>
                     <div className={'deadline-rightside'}>
                         <div className={'days-remaining'}>
-                            {/*<p id={'days' + serverData.id}>{(new Date (serverData.deadline)).toLocaleDateString("nl")}</p>*/}
                             <p id={'days' + deadlineData.id}>{deadlineLength(deadlineData)} Dagen</p>
                         </div>
                         <div className={'deadline-rightside__add-image'} onClick={() => setApiId(deadlineData.id)} style={{opacity: props.displayEdit}}>
@@ -178,22 +229,28 @@ const Deadlines = (props)  => {
                         </div>
                     </div>
                 </div>
+                </div>
             ))}
-            <Dialog_deadlines memberLink={process.env.REACT_APP_API_MEMBERS} reload={reload}/>
-            <Dialog_deadlines_edit
+            <DialogDeadlines memberLink={process.env.REACT_APP_API_MEMBERS} projectsLink={process.env.REACT_APP_API_DEVOPS_PROJECTS} reload={reload}/>
+            <DialogDeadlinesEdit
                 deadlineLink={editLink[0].link}
                 memberLink={process.env.REACT_APP_API_MEMBERS}
-                id={deadline[0].id}
-                name={deadline[0].name}
-                deadline={deadline[0].deadline}
-                link={deadline[0].link}
-                isActive={deadline[0].isActive}
-                members={deadline[0].members}
+                id={deadline[0]?.id}
+                name={deadline[0]?.name}
+                deadline={deadline[0]?.deadline}
+                link={deadline[0]?.link}
+                isActive={deadline[0]?.isActive}
+                project={deadline[0]?.project}
+                // members={deadline[0].members}
+                member1={deadline[0]?.members[0]}
+                member2={deadline[0]?.members[1]}
+                member3={deadline[0]?.members[2]}
+                projectsLink={process.env.REACT_APP_API_DEVOPS_PROJECTS}
                 reload={reload}
             />
         </div>
-    )
-}
+    );
+};
 
 export default Deadlines;
 

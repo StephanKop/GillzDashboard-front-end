@@ -1,7 +1,7 @@
-export default interface notesInterface {
-    "id": number,
-    "title": string,
-    "description": string,
-    "date": Date,
-    "isActive": boolean
+export default interface NotesInterface {
+    'id': number;
+    'title': string;
+    'description': string;
+    'date': Date;
+    'isActive': boolean;
 }
