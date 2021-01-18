@@ -1,4 +1,5 @@
 import React, { useState, createContext } from 'react';
+import DeadlinesInterface from '../interfaces/deadlines';
 
 const deadlinesState = [];
 
@@ -7,7 +8,7 @@ export const DeadlinesContext = createContext<any[]>(deadlinesState);
 
 // Create a provider for components to consume and subscribe to changes
 export const DeadlinesContextProvider = props => {
-    const [deadlines, setDeadlines] = useState(0);
+    const [deadlines, setDeadlines] = useState<DeadlinesInterface[]>([]);
     const [errors, setErrors] = useState(false);
     const [fetchUrl] = useState(process.env.REACT_APP_API_DEADLINES_ORDEREDBYDATE);
 

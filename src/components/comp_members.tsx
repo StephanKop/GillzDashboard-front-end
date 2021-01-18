@@ -57,14 +57,6 @@ const Members = (props)  => {
         setCount(count +1 );
     };
 
-    if (isLoaded) {
-        present();
-    }
-
-    // if(memberIsLoaded) {
-    //     openEditForm();
-    // }
-
     if (!isLoaded) {
         return <h2>Loading...</h2>;
     }
@@ -73,12 +65,16 @@ const Members = (props)  => {
         return <h2>Error</h2>;
     }
 
-    function present () {
-        const absent = document.querySelectorAll('#presentfalse');
-        absent.forEach((div) => {
-            div.classList.add('red');
-        });
-    }
+    const present = (status) => {
+        switch(status) {
+            case true:
+                return '1';
+                break;
+            case false:
+                return '0.2';
+                break;
+        }
+    };
 
     function openEditForm() {
         const modal = (document.getElementById('memberEditModal')!);
@@ -96,7 +92,7 @@ const Members = (props)  => {
     return (
         <div className={'members-container'}>
             {members.map((memberData, index) => (
-                <div key={index}>
+                <div key={index} style={{opacity: present(memberData.present)}}>
                     <div className={'member'} id={'present' + memberData.present.toString()}>
                         <img className={'member__image'} src={memberData.image}/>
                         <h3 className={'member__name'}>{memberData.name}</h3>

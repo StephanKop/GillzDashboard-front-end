@@ -1,12 +1,13 @@
 import React, {useEffect, useState} from 'react';
 import '../component_styles/style_dialog_members.scss';
 import '../App.scss';
+import MembersInterface from '../interfaces/members';
 import axios from 'axios';
 
 const DialogMemberEdit = (props)  => {
     const [hasError, setErrors] =  useState(false);
     const [isLoaded, setIsLoaded] =  useState(false);
-    const [members,setMembers ]= useState<any[]>([]);
+    const [members,setMembers ]= useState<MembersInterface[]>([]);
 
     async function fetchMember() {
         const res = await fetch(props.memberLink);
@@ -68,8 +69,8 @@ const DialogMemberEdit = (props)  => {
         })
             .then((response) => {
                 console.log(response);
-                props.reload();
                 closeForm();
+                props.reload();
             })
             .catch((error) => {
                 console.log(error);

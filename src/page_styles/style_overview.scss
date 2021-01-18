@@ -3,7 +3,7 @@
     flex-direction: column;
     justify-content: space-between;
     margin-top: 1rem;
-    min-height: 90vh;
+    //min-height: 90vh;
    &--serverDeadlines {
      //margin-top: 3rem;
      margin-top: 3vh;
@@ -12,6 +12,7 @@
      //height: 17rem;
      //overflow: hidden;
      //height: 45.5vh;
+     margin-top: 1rem;
    }
    &__deadlines {
      //overflow: scroll;
@@ -23,8 +24,8 @@
    &__bottom-row {
      display: grid;
      min-height: 55vh;
-     grid-template-columns: 50% auto;
-     //grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+     //grid-template-columns: 50% auto;
+     grid-template-columns: repeat(auto-fill, minmax(600px, 1fr));
      flex-wrap: wrap;
      overflow: hidden;
      //min-height: 37vh;
