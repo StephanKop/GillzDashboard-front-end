@@ -11,7 +11,6 @@ const Projects = (props)  => {
     const [fetchUrl, setFetchUrl] = useState(process.env.REACT_APP_API_DEVOPS_PROJECTS);
 
     async function fetchData() {
-        // const fetchUrl = process.env.REACT_APP_API_DEVOPS;
         const res = await fetch(fetchUrl!!);
         res
             .json()
@@ -20,12 +19,10 @@ const Projects = (props)  => {
                 setIsLoaded(true);
             })
             .catch(err => setErrors(err));
-        // setCount(count + 1);
-    }
+        }
 
     useEffect(() => {
         fetchData();
-        console.log(count);
     }, [count]);
 
     if (!isLoaded) {

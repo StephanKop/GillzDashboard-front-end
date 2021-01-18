@@ -45,7 +45,6 @@ const DialogDeadlinesEdit = (props) => {
     useEffect(() => {
         fetchMember();
         fetchProjects();
-        // convertDate(props.deadline);
     }, [isLoaded]);
 
     const convertDate = (value) => new Date(value).toISOString().substr(0, 10);

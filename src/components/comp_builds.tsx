@@ -35,54 +35,11 @@ const Builds = (props)  => {
             const container = document.getElementById('builds-container');
             const offsetHeight = container!.offsetHeight;
             const dividedHeight = offsetHeight / 60;
-            // console.log(Math.round(dividedHeight));
             setSlicedRequests(requests.slice(0, Math.round(dividedHeight)));
-            // return slicedRequests;
         } else {
             setSlicedRequests(requests);
-            // return requests;
         }
     };
-    if(isLoaded) {
-        // resultStatus();
-    }
-
-    // function resultStatus() {
-    //     Object.keys(requests).map((i) => {
-    //         if (requests[i].result === 0) {
-    //             const success = document.querySelectorAll('#result' + requests[i].result);
-    //             success.forEach((el) => {
-    //                 el.classList.remove('failed');
-    //                 el.classList.remove('cancelled');
-    //                 el.classList.remove('running');
-    //                 el.classList.add('success');
-    //             });
-    //         } else if (!requests[i].result) {
-    //             const running = document.querySelectorAll('#result' + requests[i].result);
-    //             running.forEach((el) => {
-    //                 el.classList.remove('success');
-    //                 el.classList.remove('failed');
-    //                 el.classList.add('running');
-    //             });
-    //         } else if (requests[i].result === 2) {
-    //             const failed = document.querySelectorAll('#result' + requests[i].result);
-    //             failed.forEach((el) => {
-    //                 el.classList.remove('success');
-    //                 el.classList.remove('running');
-    //                 el.classList.remove('cancelled');
-    //                 el.classList.add('failed');
-    //             });
-    //         } else if (requests[i].result === 3) {
-    //             const cancelled = document.querySelectorAll('#result' + requests[i].result);
-    //             cancelled.forEach((el) => {
-    //                 el.classList.remove('success');
-    //                 el.classList.remove('failed');
-    //                 el.classList.remove('running');
-    //                 el.classList.add('cancelled');
-    //             });
-    //         }
-    //     });
-    // }
 
     const statusIcon = (status) => {
         switch(status) {

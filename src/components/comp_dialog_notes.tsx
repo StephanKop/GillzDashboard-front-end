@@ -21,13 +21,7 @@ const DialogNotes = (props)  => {
 
     useEffect(() => {
         fetchData();
-        // let interval = setInterval(() => fetchData(), (1000))
-        // return () => clearInterval(interval)
     });
-
-    if (isLoaded) {
-        // convertDate();
-    }
 
     if (!isLoaded) {
         return <div className={'loading-container'}><img className={'loading'} src={require('../img/loading.gif')} alt={'loading'}/></div>;

@@ -29,10 +29,6 @@ const Notes = (props)  => {
         return () => clearInterval(interval);
     }, [isLoaded, count]);
 
-    if (isLoaded) {
-        // convertDate();
-    }
-
     if (!isLoaded) {
         return <h2>Loading...</h2>;
     }
@@ -56,10 +52,6 @@ const Notes = (props)  => {
                 enqueueSnackbar(error, {variant: 'error', anchorOrigin: {vertical: 'bottom', horizontal: 'center'}});
             });
     }
-    const randomColor = () => {
-        const colors = ['#ff7eb9', '#ff65a3', '#7afcff', '#feff9c', '#fff740'];
-        return colors[Math.floor(Math.random() * colors.length)];
-    };
 
     return (
         <div className={'notes-container'}>

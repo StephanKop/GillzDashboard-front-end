@@ -20,7 +20,7 @@ const Members = (props)  => {
         jobTitle: ''
     }]);
     const [editLink] = useState<any[]>([{
-        link: 'http://localhost:3001/members/3'
+        link: process.env.REACT_APP_BASE + '/members/3'
     }]);
 
     async function fetchData() {

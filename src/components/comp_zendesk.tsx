@@ -87,7 +87,7 @@ const Zendesk = (props)  => {
             const notification = new Notification('Gillz Dashboard', options);
             notification.onclick = (event) => {
                 event.preventDefault();
-                window.open('http://localhost:3000/issues');
+                window.open(process.env.REACT_APP_BASE + '/issues');
             };
             }, 6000);
         }

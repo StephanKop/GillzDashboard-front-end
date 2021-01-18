@@ -2,15 +2,10 @@ import React from 'react';
 import '../component_styles/style_header.scss';
 import '../App.scss';
 import {
-    BrowserRouter as Router,
-    Route,
-    Switch,
-    useLocation
+    BrowserRouter as Router
 } from 'react-router-dom';
 
 const Header = (props) => {
-    // const location = useLocation();
-    // console.log(location.pathname);
         return (
             <Router>
             <div className={'header'}>

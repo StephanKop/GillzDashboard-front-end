@@ -5,7 +5,6 @@ import DialogDeadlines from './comp_dialog_deadlines';
 import DialogDeadlinesEdit from './comp_dialog_deadlines_edit';
 import DeadlinesInterface from '../interfaces/deadlines';
 import DeadlineInterface from '../interfaces/deadline';
-import ProjectsInterface from '../interfaces/projects';
 
 const Deadlines = (props)  => {
     const [hasError, setErrors] =  useState(false);
@@ -40,7 +39,6 @@ const Deadlines = (props)  => {
         }
         ]
     }]);
-    // const [deadline, setDeadline] = useState<DeadlineInterface[]>([]);
     const [editLink] = useState([{
         link: ''
     }]);
@@ -75,27 +73,14 @@ const Deadlines = (props)  => {
     useEffect(() => {
         fetchData();
         heightSlice(props.frontPage);
-        // setAlertColor();
-        // let interval = setInterval(() => fetchData(), (1000 * 60 * 60))
-        // return () => clearInterval(interval)
     }, [isLoaded, count, fetchUrl]);
 
     function reload () {
         setCount(count + 1);
-        // setAlertColor();
-    }
-
-    if (isLoaded) {
-        // setAlertColor();
-        // setTimeout(addGradientLength, 3000)
     }
 
     if (DeadlineIsLoaded) {
         openEditForm();
-    }
-
-    if (!isLoaded) {
-        // return <h2>Loading...</h2>
     }
 
     if (hasError) {
@@ -110,32 +95,6 @@ const Deadlines = (props)  => {
         const newDays = Math.ceil(diffDays / milPerDay);
         return newDays;
     }
-
-    // function setAlertColor() {
-    //     Object.keys(deadlines).map((i) => {
-        // if (deadlineLength(deadlines[i]) <= 5 ) {
-        //         const daysRemaining = document.querySelectorAll('#deadline' + deadlines[i].id);
-        //         // @ts-ignore
-        //         daysRemaining.forEach((el: HTMLElement) => {
-        //             el.style.background = 'linear-gradient(90deg, rgba(249,72,76,1) 0%, rgba(249,72,76,1)' + (100 - deadlineLength(deadlines[i])) + '%' + ', rgba(255,255,255,1)' + (100 - deadlineLength(deadlines[i])) + '%' + ')';
-        //         });
-        //     }
-    //     const members = deadlines[i].members;
-    //     members.forEach((el) => {
-    //             if (el.present === false) {
-    //                 const unavailableMember = document.querySelectorAll('#deadline' + deadlines[i].id);
-    //                 const unavailableMemberImage = document.querySelectorAll('#presentfalse');
-    //                 unavailableMemberImage.forEach((el1) => {
-    //                     el1.classList.add('unavailableMember');
-    //                 });
-    //                 // @ts-ignore
-    //                 unavailableMember.forEach((el2:HTMLElement) => {
-    //                     el2.style.background = 'linear-gradient(90deg, rgba(255,181,0,1) 0%, rgba(255,181,0,1)' + (100 - deadlineLength(deadlines[i])) + '%' + ', rgba(255,255,255,1)' + (100 - deadlineLength(deadlines[i])) + '%' + ')';
-    //                 });
-    //             }
-    //         });
-    //     });
-    // }
     const setAwarenessColor = (daysRemain, present) => {
         if (daysRemain <= 5) {
             return 'linear-gradient(90deg, rgba(249,72,76,1) 0%, rgba(249,72,76,1)' + (100 - daysRemain) + '%' + ', rgba(255,255,255,0)' + (100 - daysRemain + '%' + ')');
@@ -143,7 +102,6 @@ const Deadlines = (props)  => {
             return 'linear-gradient(90deg, rgba(255,181,0,1) 0%, rgba(255,181,0,1)' + (100 - daysRemain) + '%' + ', rgba(255,255,255,0)' + (100 - daysRemain) + '%' + ')';
         } else {
             return 'linear-gradient(90deg, rgba(50, 59, 73,0.7) 0%, rgba(50, 59, 73,0.7)' + (100 - daysRemain) + '%' + ', rgba(255,255,255,0)' + (100 - daysRemain + '%' + ')');
-            // return 'linear-gradient(90deg, rgba(255, 255, 255,1) 0%, rgba(255, 255, 255,1)' + (100 - daysRemain) + '%' + ', rgba(255,255,255,0)' + (100 - daysRemain + '%' + ')');
         }
     };
 
@@ -185,7 +143,6 @@ const Deadlines = (props)  => {
             const offsetHeight = container!.offsetHeight;
             const dividedHeight = offsetHeight / 60;
             const slicedArray = deadlines.slice(0, Math.round(dividedHeight));
-            // const sortedArray = slicedArray.sort((a,b)=>new Date(a.deadline).getTime() - new Date(b.deadline).getTime());
             setSlicedDeadlines(slicedArray);
         } else {
             setSlicedDeadlines(deadlines);
@@ -206,11 +163,6 @@ const Deadlines = (props)  => {
                         <div className={'deadline-leftside__project'}>
                             <h3>{deadlineData.project}</h3>
                         </div>
-                        {/*<div className={'deadline-leftside__member-container'}>*/}
-                        {/*    {deadlineData.members.map((memberData, memberIndex) => (*/}
-                        {/*        <img src={memberData.image} alt={memberData.name} key={memberIndex} id={'present' + memberData.present}/>*/}
-                        {/*    ))}*/}
-                        {/*</div>*/}
                         <div className={'deadline-leftside__title'}>
                             <p>{deadlineData.name}</p>
                         </div>
@@ -241,7 +193,6 @@ const Deadlines = (props)  => {
                 link={deadline[0]?.link}
                 isActive={deadline[0]?.isActive}
                 project={deadline[0]?.project}
-                // members={deadline[0].members}
                 member1={deadline[0]?.members[0]}
                 member2={deadline[0]?.members[1]}
                 member3={deadline[0]?.members[2]}
