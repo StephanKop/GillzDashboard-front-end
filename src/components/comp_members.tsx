@@ -20,7 +20,7 @@ const Members = (props)  => {
         jobTitle: ''
     }]);
     const [editLink] = useState<any[]>([{
-        link: process.env.REACT_APP_BASE + '/members/3'
+        link: process.env.REACT_APP_BASE + '/members/1'
     }]);
 
     async function fetchData() {
@@ -99,7 +99,8 @@ const Members = (props)  => {
                         <p className={'member__jobTitle'}>{memberData.jobTitle}</p>
                         <p className={'member__description'}>{memberData.description}</p>
                         <div className={'member__bottom-section'}>
-                            <p className={'member__bottom-section__present'}>Aanwezig: {memberData.present.toString()}</p>
+                            {/*<p className={'member__bottom-section__present'}>Aanwezig: {memberData.present.toString()}</p>*/}
+                            <p className={'member__bottom-section__present'}>Aanwezig: ja</p>
                             <img id={'edit'} src={(require('../img/edit.svg'))} alt={'edit'} onClick={() => setApiId(memberData.id)}/>
                         </div>
                     </div>
